@@ -1,0 +1,14 @@
+package com.example.balance.repo.vehicle
+
+import com.example.balance.data.vehicle.Vehicle
+import kotlinx.coroutines.flow.Flow
+
+interface VehicleRepository {
+    suspend fun getVehiclesFromRoom(customerId: Int): Flow<List<Vehicle>>
+    suspend fun getSearchFromRoom(customerId: Int, text: String): Flow<List<Vehicle>>
+    suspend fun getVehicleFromRoom(id: Int): Flow<Vehicle>
+
+    suspend fun addVehicleToRoom(vehicle: Vehicle)
+    suspend fun updateVehicleInRoom(vehicle: Vehicle)
+    suspend fun deleteVehicleFromRoom(vehicle: Vehicle)
+}
