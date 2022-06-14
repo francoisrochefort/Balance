@@ -11,6 +11,6 @@ class UserRepositoryImpl(
     override suspend fun getSearchFromRoom(name: String) = userDao.getSearch(name)
     override suspend fun getUserFromRoom(id: Int) = userDao.getUser(id)
 
-    override suspend fun addUserToRoom(user: User)  = userDao.addUser(user)
+    override suspend fun addUserToRoom(user: User) = userDao.addUser(user)
     override suspend fun deleteUserFromRoom(user: User)  = userDao.deleteUser(user)
 }

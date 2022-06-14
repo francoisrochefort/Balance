@@ -43,7 +43,7 @@ class UpdateVehicleViewModel @Inject constructor(
         vehicle = vehicle.copy(capacity = capacity)
     }
 
-    fun updateVehicle(/*vehicle: Vehicle*/) {
+    fun updateVehicle() {
         viewModelScope.launch(Dispatchers.IO) {
             repo.updateVehicleInRoom(vehicle)
         }

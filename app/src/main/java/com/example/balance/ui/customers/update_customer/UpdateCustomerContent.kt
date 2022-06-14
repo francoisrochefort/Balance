@@ -18,10 +18,10 @@ fun UpdateCustomerContent(
     navigateToCustomersScreen: () -> Unit,
     viewModel: UpdateCustomerViewModel = hiltViewModel()
 ) {
-    val name = viewModel.customer.name
+    /*val name = viewModel.customer.name
     val address = viewModel.customer.address
     val city = viewModel.customer.city
-    val contact = viewModel.customer.contact
+    val contact = viewModel.customer.contact*/
 
     Column(
         modifier = Modifier.fillMaxSize().padding(padding),
@@ -29,7 +29,7 @@ fun UpdateCustomerContent(
         verticalArrangement = Arrangement.Center
     ) {
         TextField(
-            value = name,
+            value = viewModel.customer.name,
             onValueChange = { name -> viewModel.updateName(name) },
             placeholder = {
                 Text(
@@ -41,7 +41,7 @@ fun UpdateCustomerContent(
             modifier = Modifier.height(16.dp)
         )
         TextField(
-            value = address ?: "",
+            value = viewModel.customer.address ?: "",
             onValueChange = { address -> viewModel.updateAddress(address) },
             placeholder = {
                 Text(
@@ -53,7 +53,7 @@ fun UpdateCustomerContent(
             modifier = Modifier.height(16.dp)
         )
         TextField(
-            value = city ?: "",
+            value = viewModel.customer.city ?: "",
             onValueChange = { city -> viewModel.updateCity(city) },
             placeholder = {
                 Text(
@@ -65,7 +65,7 @@ fun UpdateCustomerContent(
             modifier = Modifier.height(16.dp)
         )
         TextField(
-            value = contact ?: "",
+            value = viewModel.customer.contact ?: "",
             onValueChange = { contact -> viewModel.updateContact(contact) },
             placeholder = {
                 Text(
@@ -75,8 +75,8 @@ fun UpdateCustomerContent(
         )
         Button(
             onClick = {
-                val updatedCustomer = Customer(name, address, city, contact, id)
-                viewModel.updateCustomer(updatedCustomer)
+                //val updatedCustomer = Customer(name, address, city, contact, id)
+                viewModel.updateCustomer(/*updatedCustomer*/)
                 navigateToCustomersScreen()
             }
         ) {

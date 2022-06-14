@@ -1,49 +1,53 @@
-package com.example.balance.ui.user_settings.add_settings
+package com.example.balance.ui.user_settings.update_user_settings
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.data.user_settings.UserSettings
 
 @Composable
-fun AddUserSettingsContent(
+fun UpdateUserSettingsContent(
     padding: PaddingValues,
+    id: Int,
     navigateToUsersScreen: () -> Unit,
-    userId: Int,
-    viewModel: AddUserSettingsViewModel = hiltViewModel()
+    viewModel: UpdateUserSettingsViewModel = hiltViewModel()
 ) {
-    var enableVehicleManagement by remember { mutableStateOf("") }
-    var dateTime by remember { mutableStateOf("") }
-    var language by remember { mutableStateOf("") }
-    var companyInfo by remember { mutableStateOf("") }
-    var couponNumber by remember { mutableStateOf("") }
+    val enableUserSettingsManagement = viewModel.userSettings.enableVehicleManagement
+    val dateTime = viewModel.userSettings.dateTime
+    val language = viewModel.userSettings.language
+    val companyInfo = viewModel.userSettings.companyInfo
+    val couponNumber = viewModel.userSettings.couponNumber
 
     Column(
         modifier = Modifier.fillMaxSize().padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TextField(
-            value = enableVehicleManagement,
-            onValueChange = { text -> enableVehicleManagement = text },
-            placeholder = {
-                Text(
-                    text = "Enable vehicle management..."
-                )
-            }
-        )
+
+        //
+        // enableUserSettingsManagement
+        //
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "Enable vehicle management",
+                Modifier.weight(1f)
+            )
+            Switch(
+                checked = enableUserSettingsManagement,
+                onCheckedChange = { viewModel.updateEnableVehicleManagement(it) })
+        }
         Spacer(
             modifier = Modifier.height(16.dp)
         )
         TextField(
             value = dateTime,
-            onValueChange = { text -> dateTime = text },
+            onValueChange = { dateTime -> viewModel.updateDateTime(dateTime) },
             placeholder = {
                 Text(
                     text = "Date time..."
@@ -55,7 +59,7 @@ fun AddUserSettingsContent(
         )
         TextField(
             value = language,
-            onValueChange = { text -> language = text },
+            onValueChange = { language -> viewModel.updateLanguage(language) },
             placeholder = {
                 Text(
                     text = "Type the language..."
@@ -67,7 +71,7 @@ fun AddUserSettingsContent(
         )
         TextField(
             value = companyInfo,
-            onValueChange = { text -> companyInfo = text },
+            onValueChange = { companyInfo -> viewModel.updateCompanyInfo(companyInfo) },
             placeholder = {
                 Text(
                     text = "Type the company info..."
@@ -79,7 +83,7 @@ fun AddUserSettingsContent(
         )
         TextField(
             value = couponNumber,
-            onValueChange = { text -> couponNumber = text },
+            onValueChange = { couponNumber -> viewModel.updateCouponNumber(couponNumber) },
             placeholder = {
                 Text(
                     text = "Type the coupon number..."
@@ -88,13 +92,12 @@ fun AddUserSettingsContent(
         )
         Button(
             onClick = {
-                val addUserSettings = UserSettings(enableVehicleManagement, dateTime, language, companyInfo, userId)
-                viewModel.addUserSettings(addUserSettings)
+                viewModel.updateUserSettings()
                 navigateToUsersScreen()
             }
         ) {
             Text(
-                text = "Add"
+                text = "Update"
             )
         }
     }

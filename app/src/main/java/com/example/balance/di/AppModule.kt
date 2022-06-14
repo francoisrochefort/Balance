@@ -8,11 +8,14 @@ import com.example.balance.repo.customer.CustomerRepositoryImpl
 import com.example.balance.data.Db
 import com.example.balance.data.material.MaterialDao
 import com.example.balance.data.user.UserDao
+import com.example.balance.data.user_settings.UserSettingsDao
 import com.example.balance.data.vehicle.VehicleDao
 import com.example.balance.repo.material.MaterialRepository
 import com.example.balance.repo.material.MaterialRepositoryImpl
 import com.example.balance.repo.user.UserRepository
 import com.example.balance.repo.user.UserRepositoryImpl
+import com.example.balance.repo.user_settings.UserSettingsRepository
+import com.example.balance.repo.user_settings.UserSettingsRepositoryImpl
 import com.example.balance.repo.vehicle.VehicleRepository
 import com.example.balance.repo.vehicle.VehicleRepositoryImpl
 //import com.example.balance.data.customer_vehicle.CustomerVehicleDao
@@ -58,6 +61,11 @@ class AppModule {
     ) = db.userDao()
 
     @Provides
+    fun provideUserSettingsDao(
+        db: Db
+    ) = db.userSettingsDao()
+
+    @Provides
     fun provideCustomerRepository(
         customerDao: CustomerDao
     ): CustomerRepository = CustomerRepositoryImpl(customerDao)
@@ -76,4 +84,10 @@ class AppModule {
     fun provideUserRepository(
         userDao: UserDao
     ): UserRepository = UserRepositoryImpl(userDao)
+
+    @Provides
+    fun provideUserSettingsRepository(
+        userSettingsDao: UserSettingsDao
+    ): UserSettingsRepository = UserSettingsRepositoryImpl(userSettingsDao)
+
 }

@@ -1,7 +1,6 @@
 package com.example.balance.data.user
 
 import androidx.room.*
-import com.example.balance.data.user.User
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,7 +16,8 @@ interface UserDao {
     fun getUser(id: Int): Flow<User>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addUser(user: User)
+    //fun addUser(user: User)
+    fun addUser(user: User): Long
 
     @Delete
     fun deleteUser(user: User)

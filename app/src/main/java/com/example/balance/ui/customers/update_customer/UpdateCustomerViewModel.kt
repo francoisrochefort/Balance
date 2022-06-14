@@ -43,7 +43,7 @@ class UpdateCustomerViewModel @Inject constructor(
         customer = customer.copy(contact = contact)
     }
 
-    fun updateCustomer(customer: Customer) {
+    fun updateCustomer(/*customer: Customer*/) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.updateCustomerInRoom(customer)
         }

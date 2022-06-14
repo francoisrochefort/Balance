@@ -5,18 +5,19 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AddUserScreen(
-    navigateToAddUserSettings: () -> Unit
+    navigateToUsersScreen: () -> Unit,
+    navigateToAddUserSettingsScreen: (id: Int) -> Unit
 ) {
     Scaffold(
         topBar = {
             AddUserTopBar(
-                navigateToUsersScreen = navigateToAddUserSettings
+                navigateToUsersScreen = navigateToUsersScreen
             )
         },
         content = { padding ->
             AddUserContent(
                 padding = padding,
-                navigateToUsersScreen = navigateToAddUserSettings
+                navigateToAddUserSettingsScreen = navigateToAddUserSettingsScreen
             )
         }
     )

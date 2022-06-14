@@ -1,4 +1,4 @@
-package com.example.balance.ui.user_settings.add_settings
+package com.example.balance.ui.user_settings.add_user_settings
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable

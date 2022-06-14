@@ -74,8 +74,7 @@ fun UpdateVehicleContent(
         )
         Button(
             onClick = {
-                //val updatedVehicle = Vehicle(model, number, plate, capacity, id, id)
-                viewModel.updateVehicle(/*updatedVehicle*/)
+                viewModel.updateVehicle()
                 navigateToVehiclesScreen()
             }
         ) {

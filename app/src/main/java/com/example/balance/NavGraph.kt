@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.balance.ui.authentication.AuthenticationScreen
 import com.example.balance.ui.customers.add_customer.AddCustomerScreen
 import com.example.balance.ui.customer_vehicles.add_vehicle.AddVehicleScreen
 import com.example.balance.ui.customer_vehicles.customer_vehicles.CustomerVehiclesScreen
@@ -17,7 +18,8 @@ import com.example.balance.ui.customer_vehicles.update_vehicle.UpdateVehicleScre
 import com.example.balance.ui.materials.add_material.AddMaterialScreen
 import com.example.balance.ui.materials.materials.MaterialsScreen
 import com.example.balance.ui.materials.update_material.UpdateMaterialScreen
-import com.example.balance.ui.user_settings.add_settings.AddUserSettingsScreen
+import com.example.balance.ui.user_settings.add_user_settings.AddUserSettingsScreen
+import com.example.balance.ui.user_settings.update_user_settings.UpdateUserSettingsScreen
 import com.example.balance.ui.users.add_user.AddUserScreen
 import com.example.balance.ui.users.users.UsersScreen
 import com.example.balance.ui.vehicles.VehiclesScreen
@@ -225,7 +227,10 @@ fun NavGraph (
             route = Routes.ADD_USER
         ) {
             AddUserScreen(
-                navigateToAddUserSettings = {
+                navigateToUsersScreen = {
+                    navController.navigate(Routes.USERS)
+                },
+                navigateToAddUserSettingsScreen = { id ->
                     navController.navigate(Routes.ADD_USER_SETTINGS + "/${id}")
                 }
             )
@@ -247,6 +252,49 @@ fun NavGraph (
                 id
             )
         }
+
+        composable(
+            route = Routes.AUTHENTICATION + "/{Id}",
+            arguments = listOf(
+                navArgument("Id") {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val id: Int = backStackEntry.arguments!!.getInt("Id")
+            AuthenticationScreen(
+                id,
+                navigateToUsersScreens = {
+                    navController.navigate(Routes.USERS)
+                },
+                navigateToUpdateUserSettings = {
+                    navController.navigate(Routes.UPDATE_USER_SETTINGS + "/${id}")
+                }
+            )
+        }
+
+
+
+
+        composable(
+            route = Routes.UPDATE_USER_SETTINGS + "/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.IntType
+                }
+            )
+        ) { backStackEntry ->
+            val id: Int = backStackEntry.arguments!!.getInt("id")
+            UpdateUserSettingsScreen(
+                id = id,
+                navigateToUsersScreen = {
+                    navController.navigate(Routes.USERS)
+                }
+            )
+        }
+
+
+
     }
 }
 

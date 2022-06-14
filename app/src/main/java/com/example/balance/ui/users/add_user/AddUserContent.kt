@@ -10,24 +10,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.data.user.User
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun AddUserContent(
     padding: PaddingValues,
-    navigateToUsersScreen: () -> Unit,
+    navigateToAddUserSettingsScreen: (id: Int) -> Unit,
     viewModel: AddUserViewModel = hiltViewModel()
 ) {
-    var name by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
     Column(
         modifier = Modifier.fillMaxSize().padding(padding),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         TextField(
-            value = name,
-            onValueChange = { text -> name = text },
+            value = viewModel.user.name,
+            onValueChange = { name -> viewModel.updateName(name) },
             placeholder = {
                 Text(
                     text = "Type a user name..."
@@ -38,8 +36,8 @@ fun AddUserContent(
             modifier = Modifier.height(16.dp)
         )
         TextField(
-            value = password,
-            onValueChange = { text -> password = text },
+            value = viewModel.user.password,
+            onValueChange = { password -> viewModel.updatePassword(password) },
             placeholder = {
                 Text(
                     text = "Type a password..."
@@ -51,9 +49,10 @@ fun AddUserContent(
         )
         Button(
             onClick = {
-                val addUser = User(name, password)
-                viewModel.addUser(addUser)
-                navigateToUsersScreen()
+
+                // TODO: user.id = 0 and is not valid; ensure the user id is passed to navigateToAddUserSettingsScreen
+                viewModel.addUser()
+                navigateToAddUserSettingsScreen(viewModel.user.id)
             }
         ) {
             Text(

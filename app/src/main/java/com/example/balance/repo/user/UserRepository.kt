@@ -8,6 +8,7 @@ interface UserRepository {
     suspend fun getSearchFromRoom(name: String): Flow<List<User>>
     suspend fun getUserFromRoom(id: Int): Flow<User>
 
-    suspend fun addUserToRoom(user: User)
+    //suspend fun addUserToRoom(user: User)
+    suspend fun addUserToRoom(user: User): Long
     suspend fun deleteUserFromRoom(user: User)
 }

@@ -16,5 +16,6 @@ object Routes {
     const val USERS = "users"
     const val ADD_USER = "add_user"
     const val AUTHENTICATION = "authentication"
-    const  val ADD_USER_SETTINGS = "add_user_settings"
+    const val ADD_USER_SETTINGS = "add_user_settings"
+    const val UPDATE_USER_SETTINGS = "update_user_settings"
 }
