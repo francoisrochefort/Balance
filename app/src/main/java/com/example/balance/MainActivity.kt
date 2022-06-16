@@ -12,10 +12,6 @@ import com.example.balance.ui.theme.BalanceTheme
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.material.Surface
 
-
-
-
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

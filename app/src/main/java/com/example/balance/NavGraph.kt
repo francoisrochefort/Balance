@@ -135,7 +135,6 @@ fun NavGraph (
                 customerId = customerId
             )
         }
-
         composable(
             route = Routes.UPDATE_CUSTOMER_VEHICLE + "/{id}",
             arguments = listOf(
@@ -152,7 +151,6 @@ fun NavGraph (
                 }
             )
         }
-
         composable(
             route = Routes.ADD_CUSTOMER_VEHICLE + "/{customerId}",
             arguments = listOf(
@@ -169,7 +167,6 @@ fun NavGraph (
                 customerId
             )
         }
-
         composable(
             route = Routes.MATERIALS
         ) {
@@ -182,7 +179,6 @@ fun NavGraph (
                 }
             )
         }
-
         composable(
             route = Routes.ADD_MATERIAL
         ) {
@@ -192,7 +188,6 @@ fun NavGraph (
                 }
             )
         }
-
         composable(
             route = Routes.UPDATE_MATERIAL + "/{id}",
             arguments = listOf(
@@ -209,7 +204,6 @@ fun NavGraph (
                 }
             )
         }
-
         composable(
             route = Routes.USERS
         ) {
@@ -222,7 +216,6 @@ fun NavGraph (
                 }
             )
         }
-
         composable(
             route = Routes.ADD_USER
         ) {
@@ -235,7 +228,6 @@ fun NavGraph (
                 }
             )
         }
-
         composable(
             route = Routes.ADD_USER_SETTINGS + "/{Id}",
             arguments = listOf(
@@ -252,7 +244,6 @@ fun NavGraph (
                 id
             )
         }
-
         composable(
             route = Routes.AUTHENTICATION + "/{Id}",
             arguments = listOf(
@@ -272,10 +263,6 @@ fun NavGraph (
                 }
             )
         }
-
-
-
-
         composable(
             route = Routes.UPDATE_USER_SETTINGS + "/{id}",
             arguments = listOf(
@@ -292,9 +279,6 @@ fun NavGraph (
                 }
             )
         }
-
-
-
     }
 }
 

@@ -28,3 +28,11 @@ val z2_start = Color(0xFF634B0A)
 val z2_end = Color(0xFF7E6E41)
 val z3_start = Color(0xFF59CED4)
 val z3_end = Color(0xFF72989A)
+
+val MyButtonTextColor = Color(0xFF000000)
+
+val MyTextColor = Color(0xFF969696)
+val MyTextHintColor = Color(0xFF969696)
+val MyTextBorderColor = Color(0xFF969696)
+
+val MyProgressBarTextColor = Color(0xFF969696)
