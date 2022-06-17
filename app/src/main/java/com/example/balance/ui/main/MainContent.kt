@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.toSize
 
 @Composable
@@ -182,7 +183,8 @@ fun MyTextPreview() {
 
 @Composable
 fun DashBoard(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val padding: Dp = dimensionResource(id = R.dimen.MyWidgetPadding)
 
@@ -200,7 +202,7 @@ fun DashBoard(
             Spacer(Modifier.weight(2f))
             MyText(
                 hint = "TARE",
-                text = "1000",
+                text = viewModel.tare.toString(),
                 Modifier.weight(2f)
             )
         }
@@ -233,7 +235,7 @@ fun DashBoard(
         // Current Weight
         MyText(
             hint = "Current Weight",
-            text = "1000000",
+            text = viewModel.currentWeight.toString(),
             Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(padding))
@@ -244,28 +246,28 @@ fun DashBoard(
         ) {
             MyText(
                 hint = "Last Bucket",
-                text = "100000",
+                text = viewModel.lastBucket.toString(),
                 Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(padding))
             MyText(
                 hint = "Bucket Count",
-                text = "100",
+                text = viewModel.bucketCount.toString(),
                 Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(padding))
             MyText(
                 hint = "Expected Load",
-                text = "1000000",
+                text = viewModel.expectedLoad.toString(),
                 Modifier.weight(1f)
             )
         }
         Spacer(modifier = Modifier.height(padding))
 
-        // Current Weight
+        // Total Load
         MyText(
             hint = "Total Load",
-            text = "1000000",
+            text = viewModel.totalLoad.toString(),
             Modifier.fillMaxWidth()
         )
     }

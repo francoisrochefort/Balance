@@ -1,5 +1,6 @@
 package com.example.balance.ui.main
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -19,11 +20,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+
     private val userRepository: UserRepository,
     private val customerRepository: CustomerRepository,
     private val vehicleRepository: VehicleRepository,
     private val materialRepository: MaterialRepository
+
 ) : ViewModel() {
+
+    //var selectedUnit: Unit? by mutableStateOf(null)
+    var tare: Float by mutableStateOf(1000f)
+    var degree: Float by mutableStateOf(0f)
+    var currentWeight: Float by mutableStateOf(1_000_000f)
+    var lastBucket: Float by mutableStateOf(100_000f)
+    var bucketCount: Int by mutableStateOf(100)
+    var expectedLoad: Float by mutableStateOf(1_000_000f)
+    var totalLoad: Float by mutableStateOf(1_000_000f)
 
     var users by mutableStateOf(emptyList<User>())
         private set
