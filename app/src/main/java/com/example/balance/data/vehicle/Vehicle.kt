@@ -21,4 +21,9 @@ data class Vehicle(
     var customer_id: Int,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
-)
+
+) {
+    override fun toString(): String {
+        return model
+    }
+}

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Balance</string>
+    <string name="none">None</string>
+    <string name="user">User</string>
+    <string name="customer">Customer</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="material">Material</string>
 </resources>

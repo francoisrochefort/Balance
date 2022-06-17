@@ -31,7 +31,7 @@ val z3_end = Color(0xFF72989A)
 
 val MyButtonTextColor = Color(0xFF000000)
 
-val MyTextColor = Color(0xFF969696)
+val MyTextColor = Color(0xFFFAFAFA)
 val MyTextHintColor = Color(0xFF969696)
 val MyTextBorderColor = Color(0xFF969696)
 

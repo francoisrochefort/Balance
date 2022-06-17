@@ -22,65 +22,35 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.toSize
 
 @Composable
 fun GradientButton(
     text: String,
-    textColor: Color,
-    gradient: Brush,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    colors: List<Color> = listOf(Color.Gray, Color.Black),
 ) {
     Button(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent
         ),
         contentPadding = PaddingValues(),
-        onClick = { onClick() })
-    {
+        onClick = { onClick() },
+        modifier = modifier
+    ) {
         Box(
             modifier = Modifier
-                .background(gradient)
-                .padding(horizontal = 32.dp, vertical = 16.dp),
+                .background(Brush.verticalGradient(colors = colors))
+                .padding(horizontal = 16.dp, vertical = 10.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = text, color = textColor)
-        }
-    }
-}
-
-@Composable
-fun <T>MyDropDownMenu(
-    list: List<T>,
-    getItemId: (item: T) -> Int,
-    getItemText: (item: T) -> String
-) {
-    var expanded by remember { mutableStateOf(false) }
-    var text: String? by remember { mutableStateOf(null) }
-    var id: Int? by remember { mutableStateOf(null) }
-
-    Column(Modifier.padding(20.dp)) {
-        Button(
-            onClick = {
-                expanded = true
-            }
-        ) {
-            Text(text = if (text == null) "None" else text!!)
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            for (item: T in list) {
-                DropdownMenuItem(
-                    onClick = {
-                        id = getItemId(item)
-                        text = getItemText(item)
-                        expanded = false
-                    }
-                ) {
-                    Text(text = getItemText(item))
-                }
-            }
+            Text(text = text.uppercase(), color = MyButtonTextColor)
         }
     }
 }
@@ -90,12 +60,53 @@ fun <T>MyDropDownMenu(
 fun GradientButtonPreview() {
     GradientButton(
         text = "Button1",
-        textColor = Color.LightGray,
-        gradient = Brush.verticalGradient(colors = listOf(Color.Gray, Color.Black)),
-        onClick = {}
+        onClick = {},
+        Modifier.width(250.dp)
     )
 }
 
+@Composable
+fun <T> MyDropDownMenu(
+    hint: String,
+    text: String?,
+    list: List<T>,
+    getItemText: (item: T) -> String,
+    onClick: (item: T) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var width by remember { mutableStateOf(Size.Zero) }
+
+    Column(modifier = modifier) {
+        MyButton(
+            onClick = {
+                expanded = true
+            },
+            text = if (text == null) "$hint:${stringResource(R.string.none)}" else "$hint: $text",
+            modifier = modifier
+                .onGloballyPositioned {
+                    width = it.size.toSize()
+                }
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .width(with(LocalDensity.current) { width.width.toDp() })
+        ) {
+            for (item: T in list) {
+                DropdownMenuItem(
+                    onClick = {
+                        expanded = false
+                        onClick(item)
+                    }
+                ) {
+                    Text(text = getItemText(item))
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun MyButton(
@@ -128,7 +139,7 @@ fun MyText(
     hint: String,
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = MyButtonTextColor,
+    color: Color = MyTextColor,
 ) {
     Column(
         modifier = modifier
@@ -148,7 +159,7 @@ fun MyText(
             text = text.uppercase(),
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Right,
-            color = MyTextColor
+            color = color
         )
         Text(
             modifier = Modifier
@@ -201,7 +212,7 @@ fun DashBoard(
                 .fillMaxWidth()
                 .height(IntrinsicSize.Max)
         ) {
-            val progressBarHeight: Int = 75
+            val progressBarHeight: Int = 20
             LinearProgressIndicator(
                 progress = 0.7f,
                 Modifier
@@ -222,7 +233,7 @@ fun DashBoard(
         // Current Weight
         MyText(
             hint = "Current Weight",
-            text = "TON",
+            text = "1000000",
             Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(padding))
@@ -263,7 +274,8 @@ fun DashBoard(
 @Composable
 fun ControlPanel(
     onMainMenu: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val padding: Dp = dimensionResource(id = R.dimen.MyWidgetPadding)
 
@@ -287,42 +299,57 @@ fun ControlPanel(
         }
 
         // User
-        /*MyButton(
-            text = "User: Selected User",
+        MyDropDownMenu(
+            hint = stringResource(R.string.user),
+            text = if (viewModel.selectedUser == null) null else viewModel.selectedUser!!.toString(),
+            list = viewModel.users,
+            getItemText = {
+                it.toString()
+            },
             onClick = {
+                viewModel.selectUser(it)
             },
             Modifier.fillMaxWidth()
-        )*/
-        MyDropDownMenu(
-            list = listOf("Kotlin", "Java", "Visual-Basic", "Python", "C++", "ASM", "JavaScript"),
-            getItemId = {
-                0
-            },
-            getItemText = {
-                it
-            }
         )
 
         // Client
-        MyButton(
-            text = "Client: Selected Client",
+        MyDropDownMenu(
+            hint = stringResource(R.string.customer),
+            text = if (viewModel.selectedCustomer == null) null else viewModel.selectedCustomer!!.toString(),
+            list = viewModel.customers,
+            getItemText = {
+                it.toString()
+            },
             onClick = {
+                viewModel.selectCustomer(it)
             },
             Modifier.fillMaxWidth()
         )
 
         // Vehicle
-        MyButton(
-            text = "Vehicle: Selected Vehicle",
+        MyDropDownMenu(
+            hint = stringResource(R.string.vehicle),
+            text = if (viewModel.selectedVehicle == null) null else viewModel.selectedVehicle!!.toString(),
+            list = viewModel.vehicles,
+            getItemText = {
+                it.toString()
+            },
             onClick = {
+                viewModel.selectVehicle(it)
             },
             Modifier.fillMaxWidth()
         )
 
         // Material
-        MyButton(
-            text = "Material: Selected Material",
+        MyDropDownMenu(
+            hint = stringResource(R.string.material),
+            text = if (viewModel.selectedMaterial == null) null else viewModel.selectedMaterial!!.toString(),
+            list = viewModel.materials,
+            getItemText = {
+                it.toString()
+            },
             onClick = {
+                viewModel.selectMaterial(it)
             },
             Modifier.fillMaxWidth()
         )
