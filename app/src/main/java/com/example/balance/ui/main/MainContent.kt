@@ -1,185 +1,23 @@
 package com.example.balance.ui.main
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.balance.R
 import com.example.balance.ui.theme.*
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.toSize
-
-@Composable
-fun GradientButton(
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colors: List<Color> = listOf(Color.Gray, Color.Black),
-) {
-    Button(
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Transparent
-        ),
-        contentPadding = PaddingValues(),
-        onClick = { onClick() },
-        modifier = modifier
-    ) {
-        Box(
-            modifier = Modifier
-                .background(Brush.verticalGradient(colors = colors))
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(text = text.uppercase(), color = MyButtonTextColor)
-        }
-    }
-}
-
-@Preview
-@Composable
-fun GradientButtonPreview() {
-    GradientButton(
-        text = "Button1",
-        onClick = {},
-        Modifier.width(250.dp)
-    )
-}
-
-@Composable
-fun <T> MyDropDownMenu(
-    hint: String,
-    text: String?,
-    list: List<T>,
-    getItemText: (item: T) -> String,
-    onClick: (item: T) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var expanded by remember { mutableStateOf(false) }
-    var width by remember { mutableStateOf(Size.Zero) }
-
-    Column(modifier = modifier) {
-        MyButton(
-            onClick = {
-                expanded = true
-            },
-            text = if (text == null) "$hint:${stringResource(R.string.none)}" else "$hint: $text",
-            modifier = modifier
-                .onGloballyPositioned {
-                    width = it.size.toSize()
-                }
-        )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .width(with(LocalDensity.current) { width.width.toDp() })
-        ) {
-            for (item: T in list) {
-                DropdownMenuItem(
-                    onClick = {
-                        expanded = false
-                        onClick(item)
-                    }
-                ) {
-                    Text(text = getItemText(item))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun MyButton(
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Button(
-        onClick = onClick,
-        modifier = modifier
-    ) {
-        Text(
-            text = text.uppercase(),
-            color = MyButtonTextColor
-        )
-    }
-}
-
-@Preview
-@Composable
-fun MyButtonPreview() {
-    MyButton(
-        text = "Button1",
-        onClick = {}
-    )
-}
-
-@Composable
-fun MyText(
-    hint: String,
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = MyTextColor,
-) {
-    Column(
-        modifier = modifier
-            .border(
-                width = dimensionResource(id = R.dimen.MyTextBorderWidth),
-                color = MyTextBorderColor,
-                shape = RoundedCornerShape(dimensionResource(id = R.dimen.MyTextBorderRadius))
-            )
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    end = 10.dp,
-                    top = 5.dp
-                ),
-            text = text.uppercase(),
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Right,
-            color = color
-        )
-        Text(
-            modifier = Modifier
-                .padding(
-                    start = 10.dp,
-                    bottom = 5.dp
-                ),
-            text = hint.uppercase(),
-            fontSize = 10.sp,
-            color = MyTextHintColor
-        )
-    }
-}
-
-@Preview
-@Composable
-fun MyTextPreview() {
-    MyText(hint = "Hint", text = "Text")
-}
+import androidx.compose.ui.unit.*
+import com.example.balance.ui.components.MyButton
+import com.example.balance.ui.components.MyDropDownMenu
+import com.example.balance.ui.components.MyText
 
 @Composable
 fun DashBoard(
@@ -247,19 +85,22 @@ fun DashBoard(
             MyText(
                 hint = "Last Bucket",
                 text = viewModel.lastBucket.toString(),
-                Modifier.weight(1f)
+                Modifier.weight(1f),
+                color = Color(0xFF00B6FD)
             )
             Spacer(modifier = Modifier.width(padding))
             MyText(
                 hint = "Bucket Count",
                 text = viewModel.bucketCount.toString(),
-                Modifier.weight(1f)
+                Modifier.weight(1f),
+                color = Color(0xFF00B6FD)
             )
             Spacer(modifier = Modifier.width(padding))
             MyText(
                 hint = "Expected Load",
                 text = viewModel.expectedLoad.toString(),
-                Modifier.weight(1f)
+                Modifier.weight(1f),
+                color = Color(0xFFF78A06)
             )
         }
         Spacer(modifier = Modifier.height(padding))
@@ -268,7 +109,8 @@ fun DashBoard(
         MyText(
             hint = "Total Load",
             text = viewModel.totalLoad.toString(),
-            Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            fontSize = 32.sp
         )
     }
 }
@@ -289,6 +131,7 @@ fun ControlPanel(
                 onClick = {
                     onMainMenu()
                 },
+                colors = listOf(Color(0xFF2F8DFD), Color(0xFF042058)),
                 Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(padding))
@@ -296,9 +139,11 @@ fun ControlPanel(
                 text = "Pause",
                 onClick = {
                 },
+                colors = listOf(Color(0xFF2F8DFD), Color(0xFF042058)),
                 Modifier.weight(1f)
             )
         }
+        Spacer(modifier = Modifier.height(padding))
 
         // User
         MyDropDownMenu(
@@ -311,8 +156,10 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectUser(it)
             },
+            colors = listOf(Color(0xFF6C6C6B), Color(0xFF1F1B1E)),
             Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(padding))
 
         // Client
         MyDropDownMenu(
@@ -325,8 +172,10 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectCustomer(it)
             },
+            colors = listOf(Color(0xFF4235FF), Color(0xFF070254)),
             Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(padding))
 
         // Vehicle
         MyDropDownMenu(
@@ -339,8 +188,10 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectVehicle(it)
             },
+            colors = listOf(Color(0xFFC42DFA), Color(0xFF44066D)),
             Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(padding))
 
         // Material
         MyDropDownMenu(
@@ -353,6 +204,7 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectMaterial(it)
             },
+            colors = listOf(Color(0xFF04B204), Color(0xFF05460E)),
             Modifier.fillMaxWidth()
         )
     }
@@ -372,6 +224,7 @@ fun BottomBar(
                 text = "Cancel Load",
                 onClick = {
                 },
+                colors = listOf(Color(0xFF857E7F), Color(0xFF191919)),
                 Modifier
                     .weight(1f)
                     .fillMaxHeight()
@@ -381,6 +234,7 @@ fun BottomBar(
                 text = "Cancel Last Bucket",
                 onClick = {
                 },
+                colors = listOf(Color(0xFF857E7F), Color(0xFF191919)),
                 Modifier
                     .weight(1f)
                     .fillMaxHeight()
@@ -390,6 +244,7 @@ fun BottomBar(
                 text = "Close Load",
                 onClick = {
                 },
+                colors = listOf(Color(0xFF857E7F), Color(0xFF191919)),
                 Modifier
                     .weight(1f)
                     .fillMaxHeight()
@@ -399,6 +254,7 @@ fun BottomBar(
                 text = "Close/Print",
                 onClick = {
                 },
+                colors = listOf(Color(0xFF857E7F), Color(0xFF191919)),
                 Modifier
                     .weight(1f)
                     .fillMaxHeight()

@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun EditText(
+fun MyEditText(
     caption: String,
     text: String,
     onTextChange: (String) -> Unit,

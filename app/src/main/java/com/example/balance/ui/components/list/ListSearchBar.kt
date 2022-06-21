@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import com.example.balance.ui.components.EditText
+import com.example.balance.ui.components.MyEditText
 
 @Composable
 fun ListSearchBar(
@@ -19,7 +19,7 @@ fun ListSearchBar(
     Column(modifier = modifier
         .padding(padding)
     ) {
-        EditText(
+        MyEditText(
             caption = "Name",
             text = text,
             onTextChange = onTextChange,
