@@ -1,13 +1,12 @@
 package com.example.balance.ui.user_settings.add_user_settings
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.ui.components.MyButton
-import com.example.balance.ui.components.MyForm
-import com.example.balance.ui.components.MyTextField
+import com.example.balance.ui.components.*
 import com.example.balance.ui.theme.MyButtonColor1
 import com.example.balance.ui.theme.MyButtonColor2
 
@@ -26,7 +25,8 @@ fun AddUserSettingsContent(
             onValueChange = { enableVehicleManagement ->
                 viewModel.updateEnableVehicleManagement(enableVehicleManagement.toBoolean())
            },
-           modifier = Modifier.fillMaxWidth()
+           modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -36,7 +36,8 @@ fun AddUserSettingsContent(
             label = "Date",
             value = viewModel.userSettings.dateTime,
             onValueChange = { dateTime -> viewModel.updateDateTime(dateTime) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -46,7 +47,8 @@ fun AddUserSettingsContent(
             label = "Language",
             value = viewModel.userSettings.language,
             onValueChange = { language -> viewModel.updateLanguage(language) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -56,7 +58,8 @@ fun AddUserSettingsContent(
             label = "Company",
             value = viewModel.userSettings.companyInfo,
             onValueChange = { companyInfo -> viewModel.updateCompanyInfo(companyInfo) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -66,7 +69,11 @@ fun AddUserSettingsContent(
             label = "Coupon Number",
             value = viewModel.userSettings.couponNumber,
             onValueChange = { couponNumber -> viewModel.updateCouponNumber(couponNumber) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextDone
+        )
+        Spacer(
+            modifier = Modifier.height(16.dp)
         )
         MyButton(
             text = "Add",

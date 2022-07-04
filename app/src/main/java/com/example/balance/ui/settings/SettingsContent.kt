@@ -24,7 +24,7 @@ fun SettingsContent(
         for ((k, v) in map) {
             Setting(
                 navigateTo = v,
-                name = k,
+                name = k.uppercase(),
                 colors = listOf(
                     Color(0xFF2F8DFD),
                     Color(0xFF042058)

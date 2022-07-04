@@ -6,10 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.ui.components.MyButton
-import com.example.balance.ui.components.MyForm
-import com.example.balance.ui.components.MyTextField
-import com.example.balance.ui.components.TextNext
+import com.example.balance.ui.components.*
 import com.example.balance.ui.theme.MyButtonColor1
 import com.example.balance.ui.theme.MyButtonColor2
 
@@ -28,7 +25,8 @@ fun UpdateUserSettingsContent(
             onValueChange = { enableVehicleManagement ->
                 viewModel.updateEnableVehicleManagement(enableVehicleManagement.toBoolean())
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -49,7 +47,8 @@ fun UpdateUserSettingsContent(
             label = "Language",
             value = viewModel.userSettings.language,
             onValueChange = { language -> viewModel.updateLanguage(language) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -59,7 +58,8 @@ fun UpdateUserSettingsContent(
             label = "Company",
             value = viewModel.userSettings.companyInfo,
             onValueChange = { companyInfo -> viewModel.updateCompanyInfo(companyInfo) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -69,7 +69,11 @@ fun UpdateUserSettingsContent(
             label = "Coupon Number",
             value = viewModel.userSettings.couponNumber,
             onValueChange = { couponNumber -> viewModel.updateCouponNumber(couponNumber) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextDone
+        )
+        Spacer(
+            modifier = Modifier.height(16.dp)
         )
         MyButton(
             text = "Update",

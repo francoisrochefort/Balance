@@ -8,7 +8,7 @@ interface UserSettingsDao {
     @Query("SELECT * FROM user_settings WHERE user_id = :user_id LIMIT 1")
     fun getUserSettings(user_id: Int): Flow<UserSettings>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addUserSettings(userSettings: UserSettings)
 
     @Update

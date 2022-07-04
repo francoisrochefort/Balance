@@ -50,7 +50,7 @@ class AddUserSettingsViewModel @Inject constructor(
 
     fun addUserSettings(userId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.addUserSettingsFromRoom(userSettings)
+            repo.addUserSettingsFromRoom(userSettings.copy(userId = userId))
         }
     }
 }

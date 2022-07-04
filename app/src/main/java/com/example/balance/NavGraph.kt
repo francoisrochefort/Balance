@@ -223,8 +223,9 @@ fun NavGraph (
                 navigateToUsersScreen = {
                     navController.navigate(Routes.USERS)
                 },
-                navigateToAddUserSettingsScreen = { id ->
-                    navController.navigate(Routes.ADD_USER_SETTINGS + "/${id}")
+                navigate = { navigate ->
+                    //navController.navigate(Routes.ADD_USER_SETTINGS + "/${id}")
+                    navController.navigate(navigate.route)
                 }
             )
         }
@@ -259,7 +260,13 @@ fun NavGraph (
                     navController.navigate(Routes.USERS)
                 },
                 navigateToUpdateUserSettings = {
-                    navController.navigate(Routes.UPDATE_USER_SETTINGS + "/${id}")
+                    navController.navigate(Routes.UPDATE_USER_SETTINGS + "/${id}") {
+
+                        // Pop up the authentication page from the backstack prior to navigate to the destination
+                        popUpTo(Routes.USERS) {
+                            //inclusive = true
+                        }
+                    }
                 }
             )
         }

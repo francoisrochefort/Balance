@@ -16,7 +16,7 @@ import com.example.balance.ui.theme.MyButtonColor2
 @Composable
 fun AddUserContent(
     padding: PaddingValues,
-    navigateToAddUserSettingsScreen: (id: Int) -> Unit,
+    //navigateToAddUserSettingsScreen: (id: Int) -> Unit,
     viewModel: AddUserViewModel = hiltViewModel()
 ) {
     MyForm {
@@ -47,7 +47,7 @@ fun AddUserContent(
 
                 // TODO: user.id = 0 and is not valid; ensure the user id is passed to navigateToAddUserSettingsScreen
                 viewModel.addUser()
-                navigateToAddUserSettingsScreen(viewModel.user.id)
+                //navigateToAddUserSettingsScreen(viewModel.user.id)
             },
             colors = listOf(
                 MyButtonColor1,
