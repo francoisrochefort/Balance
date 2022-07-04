@@ -52,7 +52,7 @@ fun DashBoard(
                 .fillMaxWidth()
                 .height(IntrinsicSize.Max)
         ) {
-            val progressBarHeight: Int = 20
+            val progressBarHeight = 20
             LinearProgressIndicator(
                 progress = 0.7f,
                 Modifier
@@ -131,15 +131,16 @@ fun ControlPanel(
                 onClick = {
                     onMainMenu()
                 },
-                colors = listOf(Color(0xFF2F8DFD), Color(0xFF042058)),
+                colors = listOf(MyMainMenuColor1, MyMainMenuColor2),
                 Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(padding))
             MyButton(
                 text = "Pause",
                 onClick = {
+
                 },
-                colors = listOf(Color(0xFF2F8DFD), Color(0xFF042058)),
+                colors = listOf(MyMainMenuColor1, MyMainMenuColor2),
                 Modifier.weight(1f)
             )
         }
@@ -156,12 +157,12 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectUser(it)
             },
-            colors = listOf(Color(0xFF6C6C6B), Color(0xFF1F1B1E)),
+            colors = listOf(MyUserMenuColor1, MyUserMenuColor2),
             Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(padding))
 
-        // Client
+        // Customer
         MyDropDownMenu(
             hint = stringResource(R.string.customer),
             text = if (viewModel.selectedCustomer == null) null else viewModel.selectedCustomer!!.toString(),
@@ -172,7 +173,7 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectCustomer(it)
             },
-            colors = listOf(Color(0xFF4235FF), Color(0xFF070254)),
+            colors = listOf(MyCustomerMenuColor1, MyCustomerMenuColor2),
             Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(padding))
@@ -188,7 +189,7 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectVehicle(it)
             },
-            colors = listOf(Color(0xFFC42DFA), Color(0xFF44066D)),
+            colors = listOf(MyVehicleMenuColor1, MyVehicleMenuColor2),
             Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(padding))
@@ -204,7 +205,7 @@ fun ControlPanel(
             onClick = {
                 viewModel.selectMaterial(it)
             },
-            colors = listOf(Color(0xFF04B204), Color(0xFF05460E)),
+            colors = listOf(MyMaterialMenuColor1, MyMaterialMenuColor2),
             Modifier.fillMaxWidth()
         )
     }

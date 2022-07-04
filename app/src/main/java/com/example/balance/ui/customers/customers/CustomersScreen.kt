@@ -2,8 +2,11 @@ package com.example.balance.ui.customers.customers
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.ui.components.list.ListScreen
+import com.example.balance.ui.theme.MyCustomerMenuColor1
+import com.example.balance.ui.theme.MyCustomerMenuColor2
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -36,6 +39,10 @@ fun CustomersScreen(
         },
         deleteItem = {
             viewModel.deleteCustomer(it)
-        }
+        },
+        colors = listOf(
+            MyCustomerMenuColor1,
+            MyCustomerMenuColor2
+        )
     )
 }

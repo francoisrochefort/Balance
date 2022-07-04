@@ -9,6 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.balance.ui.components.MyGradientBox
+import com.example.balance.ui.components.MyCard
 
 @Composable
 @ExperimentalMaterialApi
@@ -17,44 +19,41 @@ fun <T>ListItem(
     navigateToUpdateItemScreen: (id: Int) -> Unit,
     getItemId: (item: T) -> Int,
     getItemText: (item: T) -> String,
-    deleteItem: (item: T) -> Unit
+    deleteItem: (item: T) -> Unit,
+    colors: List<Color>
 ) {
-    Card(
-        shape = MaterialTheme.shapes.small,
-        modifier = Modifier
-            .padding(
-                start = 8.dp,
-                end = 8.dp,
-                top = 4.dp,
-                bottom = 4.dp
-            )
-            .fillMaxWidth(),
-        elevation = 5.dp,
+    MyCard(
         onClick = {
             navigateToUpdateItemScreen(getItemId(item))
         }
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(all = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
+        MyGradientBox(
+            colors = colors
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth(0.90f)
-            ){
-                Text(
-                    text = getItemText(item)
-                )
-            }
-            IconButton(
-                onClick = {
-                    deleteItem(item)
-                }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete customer",
-                    tint = MaterialTheme.colors.primary
-                )
+                Column(
+                    modifier = Modifier.fillMaxWidth(0.90f)
+                ) {
+                    Text(
+                        text = getItemText(item)
+                    )
+                }
+                IconButton(
+                    onClick = {
+                        deleteItem(item)
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete customer",
+                        tint = MaterialTheme.colors.primary
+                    )
+                }
             }
         }
     }

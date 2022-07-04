@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -16,7 +17,8 @@ fun <T>ListContent(
     search: (text: String) -> Unit,
     getItemId: (item: T) -> Int,
     getItemText: (item: T) -> String,
-    deleteItem: (item: T) -> Unit
+    deleteItem: (item: T) -> Unit,
+    colors: List<Color>
 ) {
     var text by remember { mutableStateOf("") }
     Column {
@@ -37,7 +39,8 @@ fun <T>ListContent(
             list = list,
             getItemId = getItemId,
             getItemText = getItemText,
-            deleteItem = deleteItem
+            deleteItem = deleteItem,
+            colors = colors
         )
         ListFooter(
             size = list.size,

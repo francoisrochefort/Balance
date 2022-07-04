@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.example.balance.Routes
 
 @Composable
@@ -21,7 +22,14 @@ fun SettingsContent(
             .padding(padding)
     ) {
         for ((k, v) in map) {
-            Setting(navigateTo = v, name = k)
+            Setting(
+                navigateTo = v,
+                name = k,
+                colors = listOf(
+                    Color(0xFF2F8DFD),
+                    Color(0xFF042058)
+                )
+            )
         }
     }
 }

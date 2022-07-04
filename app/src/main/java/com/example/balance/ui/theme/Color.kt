@@ -36,3 +36,25 @@ val MyTextHintColor = Color(0xFF969696)
 val MyTextBorderColor = Color(0xFFF1F1F1)
 
 val MyProgressBarTextColor = Color(0xFF969696)
+
+val MyMainMenuColor1 = Color(0xFF2F8DFD)
+val MyMainMenuColor2 = Color(0xFF042058)
+
+val MyUserMenuColor1 = Color(0xFF6C6C6B)
+val MyUserMenuColor2 = Color(0xFF1F1B1E)
+
+val MyCustomerMenuColor1 = Color(0xFF4235FF)
+val MyCustomerMenuColor2 = Color(0xFF070254)
+
+val MyVehicleMenuColor1 = Color(0xFFC42DFA)
+val MyVehicleMenuColor2 = Color(0xFF44066D)
+
+val MyMaterialMenuColor1 = Color(0xFF04B204)
+val MyMaterialMenuColor2 = Color(0xFF05460E)
+
+val MyButtonColor1 = Color(0xFF828282)
+val MyButtonColor2 = Color(0xFF1A1A1A)
+
+
+
+

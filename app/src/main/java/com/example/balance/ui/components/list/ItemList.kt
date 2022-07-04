@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -18,7 +19,8 @@ fun <T>ItemList(
     list: List<T>,
     getItemId: (item: T) -> Int,
     getItemText: (item: T) -> String,
-    deleteItem: (item: T) -> Unit
+    deleteItem: (item: T) -> Unit,
+    colors: List<Color>
 ) {
     LazyColumn(
         modifier = modifier
@@ -32,7 +34,8 @@ fun <T>ItemList(
                 item = item,
                 getItemId = getItemId,
                 getItemText = getItemText,
-                deleteItem = deleteItem
+                deleteItem = deleteItem,
+                colors = colors
             )
         }
     }

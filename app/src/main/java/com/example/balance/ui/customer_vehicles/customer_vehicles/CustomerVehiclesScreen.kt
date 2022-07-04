@@ -2,6 +2,7 @@ package com.example.balance.ui.customer_vehicles.customer_vehicles
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.ui.components.list.ListScreen
 
@@ -41,6 +42,10 @@ fun CustomerVehiclesScreen(
         },
         deleteItem = {
             viewModel.deleteVehicle(it)
-        }
+        },
+        colors = listOf(
+            Color(0xFF2F8DFD),
+            Color(0xFF042058)
+        )
     )
 }

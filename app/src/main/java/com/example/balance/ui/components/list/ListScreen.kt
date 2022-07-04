@@ -4,6 +4,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.Color
 
 @Composable
 @ExperimentalMaterialApi
@@ -17,7 +18,8 @@ fun <T>ListScreen(
     search: (text: String) -> Unit,
     getItemId: (item: T) -> Int,
     getItemText: (item: T) -> String,
-    deleteItem: (item: T) -> Unit
+    deleteItem: (item: T) -> Unit,
+    colors: List<Color>
 ) {
     LaunchedEffect(Unit) {
         fetchList()
@@ -42,7 +44,8 @@ fun <T>ListScreen(
                 search = search,
                 getItemId = getItemId,
                 getItemText = getItemText,
-                deleteItem = deleteItem
+                deleteItem = deleteItem,
+                colors = colors
             )
         }
     )

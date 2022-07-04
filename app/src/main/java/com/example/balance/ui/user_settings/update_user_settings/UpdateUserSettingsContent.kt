@@ -1,15 +1,17 @@
 package com.example.balance.ui.user_settings.update_user_settings
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Switch
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.balance.ui.components.MyButton
+import com.example.balance.ui.components.MyForm
+import com.example.balance.ui.components.MyTextField
+import com.example.balance.ui.components.TextNext
+import com.example.balance.ui.theme.MyButtonColor1
+import com.example.balance.ui.theme.MyButtonColor2
 
 @Composable
 fun UpdateUserSettingsContent(
@@ -18,87 +20,67 @@ fun UpdateUserSettingsContent(
     navigateToUsersScreen: () -> Unit,
     viewModel: UpdateUserSettingsViewModel = hiltViewModel()
 ) {
-    val enableUserSettingsManagement = viewModel.userSettings.enableVehicleManagement
-    val dateTime = viewModel.userSettings.dateTime
-    val language = viewModel.userSettings.language
-    val companyInfo = viewModel.userSettings.companyInfo
-    val couponNumber = viewModel.userSettings.couponNumber
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        //
-        // enableUserSettingsManagement
-        //
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = "Enable vehicle management",
-                Modifier.weight(1f)
-            )
-            Switch(
-                checked = enableUserSettingsManagement,
-                onCheckedChange = { viewModel.updateEnableVehicleManagement(it) })
-        }
+    MyForm {
+        MyTextField(
+            hint =  "Enable vehicle management...",
+            label = "Enable vehicle management",
+            value = viewModel.userSettings.enableVehicleManagement.toString(),
+            onValueChange = { enableVehicleManagement ->
+                viewModel.updateEnableVehicleManagement(enableVehicleManagement.toBoolean())
+            },
+            modifier = Modifier.fillMaxWidth()
+        )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = dateTime,
+        MyTextField(
+            hint =  "Date time...",
+            label = "Date",
+            value = viewModel.userSettings.dateTime,
             onValueChange = { dateTime -> viewModel.updateDateTime(dateTime) },
-            placeholder = {
-                Text(
-                    text = "Date time..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = language,
+        MyTextField(
+            hint =  "Type the language...",
+            label = "Language",
+            value = viewModel.userSettings.language,
             onValueChange = { language -> viewModel.updateLanguage(language) },
-            placeholder = {
-                Text(
-                    text = "Type the language..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = companyInfo,
+        MyTextField(
+            hint =  "Type company information...",
+            label = "Company",
+            value = viewModel.userSettings.companyInfo,
             onValueChange = { companyInfo -> viewModel.updateCompanyInfo(companyInfo) },
-            placeholder = {
-                Text(
-                    text = "Type the company info..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = couponNumber,
+        MyTextField(
+            hint =  "Type a coupon number...",
+            label = "Coupon Number",
+            value = viewModel.userSettings.couponNumber,
             onValueChange = { couponNumber -> viewModel.updateCouponNumber(couponNumber) },
-            placeholder = {
-                Text(
-                    text = "Type the coupon number..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth()
         )
-        Button(
+        MyButton(
+            text = "Update",
             onClick = {
                 viewModel.updateUserSettings()
                 navigateToUsersScreen()
-            }
-        ) {
-            Text(
-                text = "Update"
+            },
+            colors = listOf(
+                MyButtonColor1,
+                MyButtonColor2
             )
-        }
+        )
     }
 }

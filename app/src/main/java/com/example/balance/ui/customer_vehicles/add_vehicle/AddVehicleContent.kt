@@ -1,15 +1,14 @@
 package com.example.balance.ui.customer_vehicles.add_vehicle
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.data.vehicle.Vehicle
+import com.example.balance.ui.components.*
+import com.example.balance.ui.theme.MyButtonColor1
+import com.example.balance.ui.theme.MyButtonColor2
 
 @Composable
 fun AddVehicleContent(
@@ -18,71 +17,59 @@ fun AddVehicleContent(
     customerId: Int,
     viewModel: AddVehicleViewModel = hiltViewModel()
 ) {
-    var model by remember { mutableStateOf("") }
-    var number by remember { mutableStateOf("") }
-    var plate by remember { mutableStateOf("") }
-    var capacity by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
-            value = model,
-            onValueChange = { text -> model = text },
-            placeholder = {
-                Text(
-                    text = "Type a vehicle model..."
-                )
-            }
+    MyForm {
+        MyTextField(
+            hint =  "Type a vehicle model...",
+            label = "Model",
+            value = viewModel.vehicle.model,
+            onValueChange = { model -> viewModel.updateModel(model) },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = number,
-            onValueChange = { text -> number = text },
-            placeholder = {
-                Text(
-                    text = "Type the vehicle number..."
-                )
-            }
+        MyTextField(
+            hint =  "Type a vehicle number...",
+            label = "Number",
+            value = viewModel.vehicle.number,
+            onValueChange = { number -> viewModel.updateNumber(number) },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = plate,
-            onValueChange = { text -> plate = text },
-            placeholder = {
-                Text(
-                    text = "Type the vehicle plate..."
-                )
-            }
+        MyTextField(
+            hint =  "Type a vehicle plate...",
+            label = "Number",
+            value = viewModel.vehicle.plate,
+            onValueChange = { plate -> viewModel.updatePlate(plate) },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = capacity,
-            onValueChange = { text -> capacity = text },
-            placeholder = {
-                Text(
-                    text = "Type the capacity of the vehicle..."
-                )
-            }
+        MyTextField(
+            hint =  "Type a vehicle capacity...",
+            label = "Capacity",
+            value = viewModel.vehicle.capacity.toString(),
+            onValueChange = { capacity -> viewModel.updateCapacity(capacity.toFloat()) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.NumberDone
         )
-        Button(
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
+        MyButton(
+            text = "Add",
             onClick = {
-                val addVehicle = Vehicle(model, number, plate, capacity.toFloat(), customerId)
-                viewModel.addVehicle(addVehicle)
+                viewModel.addVehicle(customerId)
                 navigateToVehiclesScreen()
-            }
-        ) {
-            Text(
-                text = "Add"
+            },
+            colors = listOf(
+                MyButtonColor1,
+                MyButtonColor2
             )
-        }
+        )
     }
 }
+

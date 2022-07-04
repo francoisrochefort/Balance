@@ -14,6 +14,9 @@ interface CustomerDao {
     @Query("SELECT * FROM customers WHERE id = :id")
     fun getCustomer(id: Int): Flow<Customer>
 
+    @Query("SELECT * FROM customers WHERE name = :name")
+    fun getCustomerByName(name: String): Flow<Customer>?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addCustomer(customer: Customer)
 

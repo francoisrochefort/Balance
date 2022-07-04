@@ -1,6 +1,7 @@
 package com.example.balance.ui.materials.update_material
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -10,7 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.data.material.Material
+import com.example.balance.ui.components.MyButton
+import com.example.balance.ui.components.MyForm
+import com.example.balance.ui.components.MyTextField
+import com.example.balance.ui.components.TextDone
 import com.example.balance.ui.materials.update_material.UpdateMaterialViewModel
+import com.example.balance.ui.theme.MyButtonColor1
+import com.example.balance.ui.theme.MyButtonColor2
 
 @Composable
 fun UpdateMaterialContent(
@@ -19,36 +26,28 @@ fun UpdateMaterialContent(
     navigateToMaterialsScreen: () -> Unit,
     viewModel: UpdateMaterialViewModel = hiltViewModel()
 ) {
-    val name = viewModel.material.name
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
-            value = name,
+    MyForm {
+        MyTextField(
+            hint =  "Type a material name...",
+            label = "Name",
+            value = viewModel.material.name,
             onValueChange = { name -> viewModel.updateName(name) },
-            placeholder = {
-                Text(
-                    text = "Type a material name..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextDone
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-
-        Button(
+        MyButton(
+            text = "Update",
             onClick = {
-                val updatedMaterial = Material(name, id)
-                viewModel.updateMaterial(updatedMaterial)
+                viewModel.updateMaterial()
                 navigateToMaterialsScreen()
-            }
-        ) {
-            Text(
-                text = "Update"
+            },
+            colors = listOf(
+                MyButtonColor1,
+                MyButtonColor2
             )
-        }
+        )
     }
 }

@@ -1,18 +1,17 @@
 package com.example.balance.ui.users.add_user
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.data.user.User
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import com.example.balance.ui.components.MyButton
+import com.example.balance.ui.components.MyForm
+import com.example.balance.ui.components.MyTextField
+import com.example.balance.ui.components.PasswordDone
+import com.example.balance.ui.theme.MyButtonColor1
+import com.example.balance.ui.theme.MyButtonColor2
 
 @Composable
 fun AddUserContent(
@@ -20,46 +19,40 @@ fun AddUserContent(
     navigateToAddUserSettingsScreen: (id: Int) -> Unit,
     viewModel: AddUserViewModel = hiltViewModel()
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
+    MyForm {
+        MyTextField(
+            hint =  "Type a user name...",
+            label = "Name",
             value = viewModel.user.name,
             onValueChange = { name -> viewModel.updateName(name) },
-            placeholder = {
-                Text(
-                    text = "Type a user name..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
+        MyTextField(
+            hint =  "Type a user password...",
+            label = "Password",
             value = viewModel.user.password,
             onValueChange = { password -> viewModel.updatePassword(password) },
-            placeholder = {
-                Text(
-                    text = "Type a password..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.PasswordDone
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        Button(
+        MyButton(
+            text = "Add",
             onClick = {
 
                 // TODO: user.id = 0 and is not valid; ensure the user id is passed to navigateToAddUserSettingsScreen
                 viewModel.addUser()
                 navigateToAddUserSettingsScreen(viewModel.user.id)
-            }
-        ) {
-            Text(
-                text = "Add"
+            },
+            colors = listOf(
+                MyButtonColor1,
+                MyButtonColor2
             )
-        }
+        )
     }
 }

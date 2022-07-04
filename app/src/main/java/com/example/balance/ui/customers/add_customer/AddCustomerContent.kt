@@ -1,15 +1,19 @@
 package com.example.balance.ui.customers.add_customer
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.data.customer.Customer
+import com.example.balance.ui.components.MyButton
+import com.example.balance.ui.components.MyForm
+import com.example.balance.ui.components.MyTextField
+import com.example.balance.ui.components.TextDone
+import com.example.balance.ui.theme.MyButtonColor1
+import com.example.balance.ui.theme.MyButtonColor2
 
 @Composable
 fun AddCustomerContent(
@@ -17,71 +21,71 @@ fun AddCustomerContent(
     navigateToCustomersScreen: () -> Unit,
     viewModel: AddCustomerViewModel = hiltViewModel()
 ) {
-    var name by remember { mutableStateOf("") }
-    var address by remember { mutableStateOf("") }
-    var city by remember { mutableStateOf("") }
-    var contact by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
-            value = name,
-            onValueChange = { text -> name = text },
-            placeholder = {
-                Text(
-                    text = "Type a customer name..."
-                )
-            }
+    MyForm {
+        MyTextField(
+            hint =  "Type a customer name...",
+            label = "Name",
+            value = viewModel.customer.name,
+            onValueChange = { name ->
+                viewModel.updateName(name)
+            },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = address,
-            onValueChange = { text -> address = text },
-            placeholder = {
-                Text(
-                    text = "Type the customer address..."
-                )
-            }
+        MyTextField(
+            hint =  "Type the customer address...",
+            label = "Address",
+            value =  viewModel.customer.address ?: "",
+            onValueChange = { address ->
+                viewModel.updateAddress(address)
+            },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = false,
+            maxLines = 3
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = city,
-            onValueChange = { text -> city = text },
-            placeholder = {
-                Text(
-                    text = "Type the city..."
-                )
-            }
+        MyTextField(
+            hint =  "Type the customer city...",
+            label = "City",
+            value = viewModel.customer.city ?: "",
+            onValueChange = { city -> viewModel.updateCity(city) },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = contact,
-            onValueChange = { text -> contact = text },
-            placeholder = {
-                Text(
-                    text = "Type the name of the contact..."
-                )
-            }
+        MyTextField(
+            hint =  "Type the name of the contact...",
+            label = "Contact",
+            value = viewModel.customer.contact ?: "",
+            onValueChange = { contact -> viewModel.updateContact(contact) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextDone
         )
-        Button(
-            onClick = {
-                val addCustomer = Customer(name, address, city, contact)
-                viewModel.addCustomer(addCustomer)
-                navigateToCustomersScreen()
-            }
-        ) {
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
+        if (viewModel.exception != null) {
             Text(
-                text = "Add"
+                text = viewModel.exception.toString(),
+                modifier = Modifier.fillMaxWidth()
             )
         }
+        val context = LocalContext.current
+        MyButton(
+            text = "Add",
+            onClick = {
+                viewModel.addCustomer()
+                navigateToCustomersScreen()
+            },
+            colors = listOf(
+                MyButtonColor1,
+                MyButtonColor2
+            )
+        )
     }
 }

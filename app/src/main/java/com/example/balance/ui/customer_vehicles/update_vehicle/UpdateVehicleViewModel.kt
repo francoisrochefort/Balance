@@ -18,6 +18,7 @@ class UpdateVehicleViewModel @Inject constructor(
 ) : ViewModel() {
 
     var vehicle by mutableStateOf(Vehicle("", "", "", 0f, 0))
+        private set
 
     fun getVehicle(id: Int) {
         viewModelScope.launch {

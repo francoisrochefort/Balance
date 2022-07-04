@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balance.data.customer.Customer
 import com.example.balance.data.material.Material
 import com.example.balance.repo.material.MaterialRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +17,8 @@ class UpdateMaterialViewModel @Inject constructor(
     private val repo: MaterialRepository
 ) : ViewModel() {
 
-    var material by mutableStateOf(Material("", 0))
+    var material by mutableStateOf(Material(""))
+        private set
 
     fun getMaterial(id: Int) {
         viewModelScope.launch {
@@ -32,7 +32,7 @@ class UpdateMaterialViewModel @Inject constructor(
         material = material.copy(name = name)
     }
 
-    fun updateMaterial(material: Material) {
+    fun updateMaterial() {
         viewModelScope.launch(Dispatchers.IO) {
             repo.updateMaterialInRoom(material)
         }

@@ -1,15 +1,17 @@
 package com.example.balance.ui.customers.update_customer
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.data.customer.Customer
+import com.example.balance.ui.components.MyButton
+import com.example.balance.ui.components.MyForm
+import com.example.balance.ui.components.MyTextField
+import com.example.balance.ui.components.TextDone
+import com.example.balance.ui.theme.MyButtonColor1
+import com.example.balance.ui.theme.MyButtonColor2
 
 @Composable
 fun UpdateCustomerContent(
@@ -18,71 +20,64 @@ fun UpdateCustomerContent(
     navigateToCustomersScreen: () -> Unit,
     viewModel: UpdateCustomerViewModel = hiltViewModel()
 ) {
-    /*val name = viewModel.customer.name
-    val address = viewModel.customer.address
-    val city = viewModel.customer.city
-    val contact = viewModel.customer.contact*/
-
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
+    MyForm {
+        MyTextField(
+            hint =  "Type a customer name...",
+            label = "Name",
             value = viewModel.customer.name,
-            onValueChange = { name -> viewModel.updateName(name) },
-            placeholder = {
-                Text(
-                    text = "Type a customer name..."
-                )
-            }
+            onValueChange = { name ->
+                viewModel.updateName(name)
+            },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
-            value = viewModel.customer.address ?: "",
-            onValueChange = { address -> viewModel.updateAddress(address) },
-            placeholder = {
-                Text(
-                    text = "Type the customer address..."
-                )
-            }
+        MyTextField(
+            hint =  "Type the customer address...",
+            label = "Address",
+            value =  viewModel.customer.address ?: "",
+            onValueChange = { address ->
+                viewModel.updateAddress(address)
+            },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = false,
+            maxLines = 3
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
+        MyTextField(
+            hint =  "Type the customer city...",
+            label = "City",
             value = viewModel.customer.city ?: "",
             onValueChange = { city -> viewModel.updateCity(city) },
-            placeholder = {
-                Text(
-                    text = "Type the city..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        TextField(
+        MyTextField(
+            hint =  "Type the name of the contact...",
+            label = "Contact",
             value = viewModel.customer.contact ?: "",
             onValueChange = { contact -> viewModel.updateContact(contact) },
-            placeholder = {
-                Text(
-                    text = "Type the name of the contact..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextDone
         )
-        Button(
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
+        MyButton(
+            text = "Update",
             onClick = {
-                //val updatedCustomer = Customer(name, address, city, contact, id)
-                viewModel.updateCustomer(/*updatedCustomer*/)
+                viewModel.updateCustomer()
                 navigateToCustomersScreen()
-            }
-        ) {
-            Text(
-                text = "Update"
+            },
+            colors = listOf(
+                MyButtonColor1,
+                MyButtonColor2
             )
-        }
+        )
     }
 }

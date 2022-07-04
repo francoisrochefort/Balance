@@ -2,8 +2,11 @@ package com.example.balance.ui.materials.materials
 
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.ui.components.list.ListScreen
+import com.example.balance.ui.theme.MyMaterialMenuColor1
+import com.example.balance.ui.theme.MyMaterialMenuColor2
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -36,6 +39,10 @@ fun MaterialsScreen(
         },
         deleteItem = {
             viewModel.deleteMaterial(it)
-        }
+        },
+        colors = listOf(
+            MyMaterialMenuColor1,
+            MyMaterialMenuColor2
+        )
     )
 }

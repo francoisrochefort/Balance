@@ -17,7 +17,14 @@ class UpdateUserSettingsViewModel @Inject constructor(
     private val repo: UserSettingsRepository
 ) : ViewModel() {
 
-    var userSettings by mutableStateOf(UserSettings(true, "", "", "", ""))
+    var userSettings by mutableStateOf(UserSettings(
+        true,
+        "",
+        "",
+        "",
+        "")
+    )
+        private set
 
     fun getUserSettings(id: Int) {
         viewModelScope.launch {
