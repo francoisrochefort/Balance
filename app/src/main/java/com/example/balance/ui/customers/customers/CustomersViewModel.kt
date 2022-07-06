@@ -7,18 +7,34 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balance.data.customer.Customer
 import com.example.balance.repo.customer.CustomerRepository
+import com.example.balance.ui.customers.add_customer.AddCustomerEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+sealed class DeleteCustomerEvent {
+    data class OnDelete(val customer: Customer): DeleteCustomerEvent()
+    data class OnError(val exception: Exception) : DeleteCustomerEvent()
+}
 
 @HiltViewModel
 class CustomersViewModel @Inject constructor(
     private val repo: CustomerRepository
 ) : ViewModel() {
 
+    // TODO: Use a single variable
     var customers by mutableStateOf(emptyList<Customer>())
+        private set
     var search by mutableStateOf(emptyList<Customer>())
+        private set
+
+    private var deleted: Customer? = null
+
+    private val _event = Channel<DeleteCustomerEvent>()
+    val event = _event.receiveAsFlow()
 
     fun getCustomers() {
         viewModelScope.launch {
@@ -38,7 +54,25 @@ class CustomersViewModel @Inject constructor(
 
     fun deleteCustomer(customer: Customer) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.deleteCustomerFromRoom(customer)
+            try {
+                deleted = customer
+                repo.deleteCustomerFromRoom(customer)
+                _event.send(DeleteCustomerEvent.OnDelete(customer))
+            }
+            catch (e: Exception) {
+                _event.send(DeleteCustomerEvent.OnError(e))
+            }
+        }
+    }
+
+    fun undoDelete() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repo.addCustomerToRoom(customer = deleted!!, false)
+            }
+            catch (e: Exception) {
+                _event.send(DeleteCustomerEvent.OnError(e))
+            }
         }
     }
 }

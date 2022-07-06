@@ -5,4 +5,6 @@
     <string name="customer">Customer</string>
     <string name="vehicle">Vehicle</string>
     <string name="material">Material</string>
+    <string name="customer_deleted">Customer deleted</string>
+    <string name="undo">Undo</string>
 </resources>

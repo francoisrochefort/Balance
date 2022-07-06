@@ -7,10 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balance.data.customer.Customer
 import com.example.balance.repo.customer.CustomerRepository
+import com.example.balance.ui.customers.add_customer.AddCustomerEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+sealed class UpdateCustomerEvent {
+    data class OnUpdate(val customer: Customer): UpdateCustomerEvent()
+    data class OnError(val exception: Exception) : UpdateCustomerEvent()
+}
 
 @HiltViewModel
 class UpdateCustomerViewModel @Inject constructor(
@@ -18,6 +26,9 @@ class UpdateCustomerViewModel @Inject constructor(
 ) : ViewModel() {
 
     var customer by mutableStateOf(Customer("", "", "", ""))
+
+    private val _event = Channel<UpdateCustomerEvent>()
+    val event = _event.receiveAsFlow()
 
     fun getCustomer(id: Int) {
         viewModelScope.launch {
@@ -43,9 +54,18 @@ class UpdateCustomerViewModel @Inject constructor(
         customer = customer.copy(contact = contact)
     }
 
-    fun updateCustomer(/*customer: Customer*/) {
+    fun updateCustomer(replace: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.updateCustomerInRoom(customer)
+            try {
+                repo.updateCustomerInRoom(
+                    customer = customer,
+                    replace = replace
+                )
+                _event.send(UpdateCustomerEvent.OnUpdate(customer))
+            }
+            catch (e: Exception) {
+                _event.send(UpdateCustomerEvent.OnError(e))
+            }
         }
     }
 }

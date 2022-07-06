@@ -43,7 +43,7 @@ fun MyButton(
 fun MyButtonPreview() {
     MyButton(
         text = "Button1",
-        onClick = {},
+        onClick = { },
         colors = listOf(
             Color(0xFF2F8DFD),
             Color(0xFF042058)

@@ -1,6 +1,7 @@
 package com.example.balance.ui.authentication
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
@@ -9,6 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.ui.components.MyButton
+import com.example.balance.ui.components.MyForm
+import com.example.balance.ui.components.MyTextField
+import com.example.balance.ui.components.PasswordDone
 import com.example.balance.ui.theme.MyButtonColor1
 import com.example.balance.ui.theme.MyButtonColor2
 
@@ -22,19 +26,14 @@ fun AuthenticationContent(
 ) {
     var password by remember { mutableStateOf("") }
 
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        TextField(
+    MyForm {
+        MyTextField(
+            hint =  "Type a user password...",
+            label = "Password",
             value = password,
             onValueChange = { text -> password = text },
-            placeholder = {
-                Text(
-                    text = "Type your password..."
-                )
-            }
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.PasswordDone
         )
         Spacer(
             modifier = Modifier.height(16.dp)

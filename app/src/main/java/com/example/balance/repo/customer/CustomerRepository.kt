@@ -8,7 +8,7 @@ interface CustomerRepository {
     suspend fun getSearchFromRoom(name: String): Flow<List<Customer>>
     suspend fun getCustomerFromRoom(id: Int): Flow<Customer>
 
-    suspend fun addCustomerToRoom(customer: Customer)
-    suspend fun updateCustomerInRoom(customer: Customer)
+    suspend fun addCustomerToRoom(customer: Customer, replace: Boolean) : Long
+    suspend fun updateCustomerInRoom(customer: Customer, replace: Boolean)
     suspend fun deleteCustomerFromRoom(customer: Customer)
 }

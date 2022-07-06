@@ -18,7 +18,7 @@ import com.example.balance.ui.theme.MyButtonColor2
 @Composable
 fun AddCustomerContent(
     padding: PaddingValues,
-    navigateToCustomersScreen: () -> Unit,
+    //navigateToCustomersScreen: () -> Unit,
     viewModel: AddCustomerViewModel = hiltViewModel()
 ) {
     MyForm {
@@ -69,18 +69,10 @@ fun AddCustomerContent(
         Spacer(
             modifier = Modifier.height(16.dp)
         )
-        if (viewModel.exception != null) {
-            Text(
-                text = viewModel.exception.toString(),
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        val context = LocalContext.current
         MyButton(
             text = "Add",
             onClick = {
                 viewModel.addCustomer()
-                navigateToCustomersScreen()
             },
             colors = listOf(
                 MyButtonColor1,

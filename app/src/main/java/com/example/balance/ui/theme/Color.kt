@@ -55,6 +55,9 @@ val MyMaterialMenuColor2 = Color(0xFF05460E)
 val MyButtonColor1 = Color(0xFF828282)
 val MyButtonColor2 = Color(0xFF1A1A1A)
 
+val MyListItemTextColor = Color(0xFFFFFFFF)
+val MyListItemIconColor = Color(0xFFFFFFFF)
+
 
 
 

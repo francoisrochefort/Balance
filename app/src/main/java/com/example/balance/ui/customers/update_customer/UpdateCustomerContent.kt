@@ -16,8 +16,6 @@ import com.example.balance.ui.theme.MyButtonColor2
 @Composable
 fun UpdateCustomerContent(
     padding: PaddingValues,
-    id: Int,
-    navigateToCustomersScreen: () -> Unit,
     viewModel: UpdateCustomerViewModel = hiltViewModel()
 ) {
     MyForm {
@@ -72,7 +70,6 @@ fun UpdateCustomerContent(
             text = "Update",
             onClick = {
                 viewModel.updateCustomer()
-                navigateToCustomersScreen()
             },
             colors = listOf(
                 MyButtonColor1,

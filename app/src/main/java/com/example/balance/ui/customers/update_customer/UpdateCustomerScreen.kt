@@ -1,9 +1,10 @@
 package com.example.balance.ui.customers.update_customer
 
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.balance.repo.customer.CustomerRepositoryImpl
+import com.example.balance.ui.components.ObjectAlreadyExistExceptionAlertDialog
 
 @Composable
 fun UpdateCustomerScreen(
@@ -11,8 +12,23 @@ fun UpdateCustomerScreen(
     navigateToCustomersScreen: () -> Unit,
     viewModel: UpdateCustomerViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(Unit) {
+    var showDialog by remember { mutableStateOf(false) }
+    LaunchedEffect(key1 = true) {
         viewModel.getCustomer(id)
+        viewModel.event.collect { event ->
+            when (event) {
+                is UpdateCustomerEvent.OnError -> {
+                    when (event.exception) {
+                        is CustomerRepositoryImpl.CustomerAlreadyExists -> {
+                            showDialog = true
+                        }
+                    }
+                }
+                is UpdateCustomerEvent.OnUpdate -> {
+                    navigateToCustomersScreen()
+                }
+            }
+        }
     }
     Scaffold(
         topBar = {
@@ -23,9 +39,17 @@ fun UpdateCustomerScreen(
         content = { padding ->
             UpdateCustomerContent(
                 padding = padding,
-                id = id,
-                navigateToCustomersScreen = navigateToCustomersScreen
             )
         }
     )
+    if (showDialog) {
+        ObjectAlreadyExistExceptionAlertDialog(
+            hideDialog = {
+                showDialog = false
+            },
+            onReplace = {
+                viewModel.updateCustomer(true)
+            }
+        )
+    }
 }

@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 fun <T>ListContent(
     padding: PaddingValues,
     navigateToUpdateItemScreen: (id: Int) -> Unit,
-    getList: () ->List<T>,
+    getList: () -> List<T>,
     getSearch: () -> List<T>,
     search: (text: String) -> Unit,
     getItemId: (item: T) -> Int,
@@ -21,6 +21,7 @@ fun <T>ListContent(
     colors: List<Color>
 ) {
     var text by remember { mutableStateOf("") }
+
     Column {
         ListSearchBar(
             padding = padding,

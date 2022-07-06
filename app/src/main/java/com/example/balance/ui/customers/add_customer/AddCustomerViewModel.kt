@@ -1,17 +1,25 @@
 package com.example.balance.ui.customers.add_customer
 
-import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.balance.Routes
 import com.example.balance.data.customer.Customer
 import com.example.balance.repo.customer.CustomerRepository
+import com.example.balance.ui.users.add_user.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
+
+sealed class AddCustomerEvent {
+    data class OnNew(val customer: Customer): AddCustomerEvent()
+    data class OnError(val exception: Exception) : AddCustomerEvent()
+}
 
 @HiltViewModel
 class AddCustomerViewModel @Inject constructor(
@@ -20,7 +28,9 @@ class AddCustomerViewModel @Inject constructor(
 
     var customer by mutableStateOf(Customer("", "", "", ""))
         private set
-    var exception by mutableStateOf<Exception?>(null)
+
+    private val _event = Channel<AddCustomerEvent>()
+    val event = _event.receiveAsFlow()
 
     fun updateName(name: String) {
         customer = customer.copy(name = name)
@@ -38,14 +48,27 @@ class AddCustomerViewModel @Inject constructor(
         customer = customer.copy(contact = contact)
     }
 
-    fun addCustomer() {
+    fun addCustomer(replace: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repo.addCustomerToRoom(customer)
+                val id: Long = repo.addCustomerToRoom(
+                    customer = customer,
+                    replace = replace
+                )
+                _event.send(AddCustomerEvent.OnNew(customer.copy(
+                    id = id.toInt()
+                )))
             }
             catch (e: Exception) {
-                exception = e
+                _event.send(AddCustomerEvent.OnError(e))
             }
         }
     }
 }
+
+
+
+
+
+
+

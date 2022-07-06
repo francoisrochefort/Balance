@@ -16,7 +16,6 @@ interface UserDao {
     fun getUser(id: Int): Flow<User>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    //fun addUser(user: User)
     fun addUser(user: User): Long
 
     @Delete

@@ -212,7 +212,13 @@ fun NavGraph (
                     navController.navigate(Routes.ADD_USER)
                 },
                 navigateToAuthenticationScreen = { id ->
-                    navController.navigate(Routes.AUTHENTICATION + "/${id}")
+                    navController.navigate(Routes.AUTHENTICATION + "/${id}") {
+
+                        // Pop up the authentication page from the backstack prior to navigate to the destination
+                        popUpTo(Routes.SETTINGS) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
@@ -223,9 +229,18 @@ fun NavGraph (
                 navigateToUsersScreen = {
                     navController.navigate(Routes.USERS)
                 },
+
+                // TODO: Should read onNewUser instead
                 navigate = { navigate ->
+
                     //navController.navigate(Routes.ADD_USER_SETTINGS + "/${id}")
-                    navController.navigate(navigate.route)
+                    navController.navigate(navigate.route){
+
+                        // Pop up the add_user page from the backstack prior to navigate to the destination
+                        popUpTo(Routes.SETTINGS) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
@@ -240,9 +255,15 @@ fun NavGraph (
             val id: Int = backStackEntry.arguments!!.getInt("Id")
             AddUserSettingsScreen(
                 navigateToUsersScreen = {
-                    navController.navigate(Routes.USERS)
+                    navController.navigate(Routes.USERS) {
+
+                        // Pop up the user_setting page from the backstack prior to navigate to the destination
+                        popUpTo(Routes.SETTINGS) {
+                            inclusive = true
+                        }
+                    }
                 },
-                id
+                userId = id
             )
         }
         composable(
@@ -257,14 +278,20 @@ fun NavGraph (
             AuthenticationScreen(
                 id,
                 navigateToUsersScreens = {
-                    navController.navigate(Routes.USERS)
+                    navController.navigate(Routes.USERS) {
+
+                        // Pop up the authentication page from the backstack prior to navigate to the destination
+                        popUpTo(Routes.SETTINGS) {
+                            inclusive = true
+                        }
+                    }
                 },
                 navigateToUpdateUserSettings = {
                     navController.navigate(Routes.UPDATE_USER_SETTINGS + "/${id}") {
 
                         // Pop up the authentication page from the backstack prior to navigate to the destination
-                        popUpTo(Routes.USERS) {
-                            //inclusive = true
+                        popUpTo(Routes.SETTINGS) {
+                            inclusive = true
                         }
                     }
                 }
@@ -282,7 +309,13 @@ fun NavGraph (
             UpdateUserSettingsScreen(
                 id = id,
                 navigateToUsersScreen = {
-                    navController.navigate(Routes.USERS)
+                    navController.navigate(Routes.USERS) {
+
+                        // Pop up the authentication page from the backstack prior to navigate to the destination
+                        popUpTo(Routes.SETTINGS) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }

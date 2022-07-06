@@ -6,10 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.balance.ui.components.MyButton
-import com.example.balance.ui.components.MyForm
-import com.example.balance.ui.components.MyTextField
-import com.example.balance.ui.components.PasswordDone
+import com.example.balance.ui.components.*
 import com.example.balance.ui.theme.MyButtonColor1
 import com.example.balance.ui.theme.MyButtonColor2
 
@@ -25,7 +22,8 @@ fun AddUserContent(
             label = "Name",
             value = viewModel.user.name,
             onValueChange = { name -> viewModel.updateName(name) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.TextNext
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -36,7 +34,7 @@ fun AddUserContent(
             value = viewModel.user.password,
             onValueChange = { password -> viewModel.updatePassword(password) },
             modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions.PasswordDone
+            keyboardOptions = KeyboardOptions.TextDone
         )
         Spacer(
             modifier = Modifier.height(16.dp)

@@ -15,10 +15,10 @@ interface CustomerDao {
     fun getCustomer(id: Int): Flow<Customer>
 
     @Query("SELECT * FROM customers WHERE name = :name")
-    fun getCustomerByName(name: String): Flow<Customer>?
+    fun getCustomerByName(name: String): Customer?
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addCustomer(customer: Customer)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addCustomer(customer: Customer) : Long
 
     @Update
     fun updateCustomer(customer: Customer)
