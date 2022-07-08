@@ -16,7 +16,6 @@ import com.example.balance.ui.theme.MyButtonColor2
 @Composable
 fun AddMaterialContent(
     padding: PaddingValues,
-    navigateToMaterialsScreen: () -> Unit,
     viewModel: AddMaterialViewModel = hiltViewModel()
 ) {
     MyForm {
@@ -35,7 +34,6 @@ fun AddMaterialContent(
             text = "Add",
             onClick = {
                 viewModel.addMaterial()
-                navigateToMaterialsScreen()
             },
             colors = listOf(
                 MyButtonColor1,

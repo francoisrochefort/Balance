@@ -27,11 +27,8 @@ fun CustomersScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val context: Context = LocalContext.current
-
     LaunchedEffect(key1 = true) {
-
         viewModel.getCustomers()
-
         viewModel.event.collect { event ->
             when (event) {
                 is ListEvent.OnDelete -> {
@@ -49,7 +46,6 @@ fun CustomersScreen(
             }
         }
     }
-
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {

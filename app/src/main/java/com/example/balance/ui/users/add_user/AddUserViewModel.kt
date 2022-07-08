@@ -36,7 +36,6 @@ class AddUserViewModel @Inject constructor(
     }
 
     fun addUser(replace: Boolean = false) {
-
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val id: Long = repo.addUserToRoom(
@@ -55,6 +54,5 @@ class AddUserViewModel @Inject constructor(
                 _event.send(ListEvent.OnError(e))
             }
         }
-
     }
 }

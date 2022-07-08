@@ -45,7 +45,14 @@ class MaterialsViewModel @Inject constructor(
 
     fun deleteMaterial(material: Material) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.deleteMaterialFromRoom(material)
+            try {
+                deleted = material
+                repo.deleteMaterialFromRoom(material)
+                _event.send(ListEvent.OnDelete(material))
+            }
+            catch (e: Exception) {
+                _event.send(ListEvent.OnError(e))
+            }
         }
     }
 

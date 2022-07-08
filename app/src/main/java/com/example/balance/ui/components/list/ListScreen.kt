@@ -33,11 +33,8 @@ fun <T>ListScreen(
 ) {
     val scaffoldState = rememberScaffoldState()
     val context: Context = LocalContext.current
-
     LaunchedEffect(key1 = true) {
-
         fetchList()
-
         getEventFlow().collect { event ->
             when (event) {
                 is ListEvent.OnDelete -> {
@@ -55,7 +52,6 @@ fun <T>ListScreen(
             }
         }
     }
-
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
