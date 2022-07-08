@@ -11,9 +11,12 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     LaunchedEffect(Unit) {
+
         viewModel.getUsers()
-        viewModel.getCustomers()
         viewModel.getMaterials()
+        viewModel.getCustomers()
+        viewModel.getVehicles()
+
     }
     Scaffold(
         content = { padding ->

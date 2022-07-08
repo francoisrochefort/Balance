@@ -155,7 +155,7 @@ fun ControlPanel(
                 it.toString()
             },
             onClick = {
-                viewModel.selectUser(it)
+                viewModel.updateUser(it)
             },
             colors = listOf(MyUserMenuColor1, MyUserMenuColor2),
             Modifier.fillMaxWidth()
@@ -170,8 +170,8 @@ fun ControlPanel(
             getItemText = {
                 it.toString()
             },
-            onClick = {
-                viewModel.selectCustomer(it)
+            onClick = { customer ->
+                viewModel.updateCustomer(customer)
             },
             colors = listOf(MyCustomerMenuColor1, MyCustomerMenuColor2),
             Modifier.fillMaxWidth()
@@ -186,8 +186,8 @@ fun ControlPanel(
             getItemText = {
                 it.toString()
             },
-            onClick = {
-                viewModel.selectVehicle(it)
+            onClick = { vehicle ->
+                viewModel.updateVehicle(vehicle)
             },
             colors = listOf(MyVehicleMenuColor1, MyVehicleMenuColor2),
             Modifier.fillMaxWidth()
@@ -202,8 +202,8 @@ fun ControlPanel(
             getItemText = {
                 it.toString()
             },
-            onClick = {
-                viewModel.selectMaterial(it)
+            onClick = { material ->
+                viewModel.updateMaterial(material)
             },
             colors = listOf(MyMaterialMenuColor1, MyMaterialMenuColor2),
             Modifier.fillMaxWidth()

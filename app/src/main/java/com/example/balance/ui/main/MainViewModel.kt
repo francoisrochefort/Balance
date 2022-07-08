@@ -61,6 +61,7 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
     fun getCustomers() {
         viewModelScope.launch {
             customerRepository.getCustomersFromRoom().collect { response ->
@@ -68,13 +69,17 @@ class MainViewModel @Inject constructor(
             }
         }
     }
-    private fun getVehicles() {
-        viewModelScope.launch {
-            vehicleRepository.getVehiclesFromRoom(selectedCustomer!!.id).collect { response ->
-                vehicles = response
+
+    fun getVehicles() {
+        selectedCustomer?.let { customer ->
+            viewModelScope.launch {
+                vehicleRepository.getVehiclesFromRoom(customer.id).collect { response ->
+                    vehicles = response
+                }
             }
         }
     }
+
     fun getMaterials() {
         viewModelScope.launch {
             materialRepository.getMaterialsFromRoom().collect { response ->
@@ -83,20 +88,22 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun selectUser(user: User) {
+    fun updateUser(user: User) {
         selectedUser = user
     }
-    fun selectCustomer(customer: Customer) {
-        if (customer != selectedCustomer) {
-            selectedVehicle = null
-            selectedCustomer = customer
-            getVehicles()
-        }
+
+    fun updateCustomer(customer: Customer) {
+        selectedCustomer = customer
+        getVehicles()
+
+        if (customer != selectedCustomer) selectedVehicle = null
     }
-    fun selectVehicle(vehicle: Vehicle) {
+
+    fun updateVehicle(vehicle: Vehicle) {
         selectedVehicle = vehicle
     }
-    fun selectMaterial(material: Material) {
+
+    fun updateMaterial(material: Material) {
         selectedMaterial = material
     }
 }
