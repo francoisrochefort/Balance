@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
 fun MyTextField(
@@ -21,7 +22,8 @@ fun MyTextField(
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.TextNext,
     singleLine: Boolean = true,
-    maxLines: Int = Int.MAX_VALUE
+    maxLines: Int = Int.MAX_VALUE,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
     val focusManager = LocalFocusManager.current
     TextField(
@@ -47,7 +49,9 @@ fun MyTextField(
                 focusManager.moveFocus(FocusDirection.Down)
             }
         ),
-        keyboardOptions = keyboardOptions
+        keyboardOptions = keyboardOptions,
+        maxLines = maxLines,
+        visualTransformation = visualTransformation
     )
 }
 
@@ -96,4 +100,6 @@ var KeyboardOptions.Companion.PasswordDone : KeyboardOptions
         imeAction = ImeAction.Done,
     )
     set(value) = TODO()
+
+
 

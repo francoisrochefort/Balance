@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.ui.components.*
@@ -13,7 +15,6 @@ import com.example.balance.ui.theme.MyButtonColor2
 @Composable
 fun AddUserContent(
     padding: PaddingValues,
-    //navigateToAddUserSettingsScreen: (id: Int) -> Unit,
     viewModel: AddUserViewModel = hiltViewModel()
 ) {
     MyForm {
@@ -34,7 +35,8 @@ fun AddUserContent(
             value = viewModel.user.password,
             onValueChange = { password -> viewModel.updatePassword(password) },
             modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions.TextDone
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions.PasswordDone
         )
         Spacer(
             modifier = Modifier.height(16.dp)
@@ -42,10 +44,7 @@ fun AddUserContent(
         MyButton(
             text = "Add",
             onClick = {
-
-                // TODO: user.id = 0 and is not valid; ensure the user id is passed to navigateToAddUserSettingsScreen
                 viewModel.addUser()
-                //navigateToAddUserSettingsScreen(viewModel.user.id)
             },
             colors = listOf(
                 MyButtonColor1,
