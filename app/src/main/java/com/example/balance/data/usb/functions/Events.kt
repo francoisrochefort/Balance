@@ -1,4 +1,4 @@
-package com.example.balance.functions
+package com.example.balance.data.usb.functions
 
 class OnAngleReceived(val angleValue: Double, val angleId : Int )
 

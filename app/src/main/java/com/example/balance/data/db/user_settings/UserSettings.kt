@@ -1,12 +1,24 @@
-package com.example.balance.data.user_settings
+package com.example.balance.data.db.user_settings
 
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.balance.data.db.user.User
 import java.util.*
 
-@Entity(tableName = "user_settings")
+@Entity(
+    tableName = "user_settings",
+    foreignKeys = [
+        ForeignKey(
+            entity = User::class,
+            parentColumns = ["id"],
+            childColumns = ["id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
 data class UserSettings(
     @ColumnInfo(name = "enable_vehicle_management")
     var enableVehicleManagement: Boolean,
@@ -19,6 +31,5 @@ data class UserSettings(
     var couponNumber: String,
     @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "user_id")
-    var userId: Int = 0
+    var id: Int = 0
 )

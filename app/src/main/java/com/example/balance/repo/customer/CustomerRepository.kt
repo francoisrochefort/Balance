@@ -1,6 +1,6 @@
 package com.example.balance.repo.customer
 
-import com.example.balance.data.customer.Customer
+import com.example.balance.data.db.customer.Customer
 import kotlinx.coroutines.flow.Flow
 
 interface CustomerRepository {

@@ -1,8 +1,7 @@
 package com.example.balance.repo.user_settings
 
-import com.example.balance.data.user_settings.UserSettings
-import com.example.balance.data.user_settings.UserSettingsDao
-import kotlinx.coroutines.flow.Flow
+import com.example.balance.data.db.user_settings.UserSettings
+import com.example.balance.data.db.user_settings.UserSettingsDao
 
 class UserSettingsRepositoryImpl(
     private val userSettingsDao: UserSettingsDao

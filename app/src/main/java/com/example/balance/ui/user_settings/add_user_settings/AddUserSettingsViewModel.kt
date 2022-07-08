@@ -5,8 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balance.data.material.Material
-import com.example.balance.data.user_settings.UserSettings
+import com.example.balance.data.db.user_settings.UserSettings
 import com.example.balance.repo.user_settings.UserSettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +49,7 @@ class AddUserSettingsViewModel @Inject constructor(
 
     fun addUserSettings(userId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.addUserSettingsFromRoom(userSettings.copy(userId = userId))
+            repo.addUserSettingsFromRoom(userSettings.copy(id = userId))
         }
     }
 }

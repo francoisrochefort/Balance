@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balance.data.material.Material
+import com.example.balance.data.db.material.Material
 import com.example.balance.repo.material.MaterialRepository
 import com.example.balance.ui.components.list.ListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel

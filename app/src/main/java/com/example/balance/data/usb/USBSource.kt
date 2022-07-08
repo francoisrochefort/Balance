@@ -1,4 +1,4 @@
-package com.example.balance.data
+package com.example.balance.data.usb
 
 import android.app.PendingIntent
 import android.content.Context

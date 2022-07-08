@@ -1,9 +1,7 @@
 package com.example.balance.repo.vehicle
 
-import com.example.balance.data.user.User
-import com.example.balance.data.vehicle.Vehicle
-import com.example.balance.data.vehicle.VehicleDao
-import com.example.balance.repo.user.UserRepositoryImpl
+import com.example.balance.data.db.vehicle.Vehicle
+import com.example.balance.data.db.vehicle.VehicleDao
 
 class VehicleRepositoryImpl(
 

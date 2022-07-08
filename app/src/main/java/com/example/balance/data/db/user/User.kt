@@ -1,4 +1,4 @@
-package com.example.balance.data.user
+package com.example.balance.data.db.user
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
@@ -16,10 +16,8 @@ import androidx.room.PrimaryKey
 data class User(
     @NonNull
     val name: String,
-
     @NonNull
     val password: String,
-
     @NonNull
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0

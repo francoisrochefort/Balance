@@ -1,4 +1,4 @@
-package com.example.balance.data
+package com.example.balance.data.db
 
 import androidx.room.TypeConverter
 import java.text.SimpleDateFormat

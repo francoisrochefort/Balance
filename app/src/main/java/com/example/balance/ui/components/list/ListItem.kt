@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.balance.R
-import com.example.balance.data.material.Material
+import com.example.balance.data.db.material.Material
 import com.example.balance.ui.components.MyGradientBox
 import com.example.balance.ui.components.MyCard
 import com.example.balance.ui.theme.*

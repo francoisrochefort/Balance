@@ -1,6 +1,6 @@
 package com.example.balance.repo.vehicle
 
-import com.example.balance.data.vehicle.Vehicle
+import com.example.balance.data.db.vehicle.Vehicle
 import kotlinx.coroutines.flow.Flow
 
 interface VehicleRepository {

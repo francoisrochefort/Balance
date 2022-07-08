@@ -5,8 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balance.data.customer.Customer
-import com.example.balance.data.vehicle.Vehicle
+import com.example.balance.data.db.vehicle.Vehicle
 import com.example.balance.repo.vehicle.VehicleRepository
 import com.example.balance.ui.components.list.ListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel

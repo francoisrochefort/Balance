@@ -1,7 +1,6 @@
-package com.example.balance.data.user
+package com.example.balance.data.db.user
 
 import androidx.room.*
-import com.example.balance.data.customer.Customer
 import kotlinx.coroutines.flow.Flow
 
 @Dao

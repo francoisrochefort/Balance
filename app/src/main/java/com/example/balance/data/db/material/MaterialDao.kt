@@ -1,4 +1,4 @@
-package com.example.balance.data.material
+package com.example.balance.data.db.material
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

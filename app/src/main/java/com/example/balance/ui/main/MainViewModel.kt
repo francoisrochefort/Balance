@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balance.data.customer.Customer
-import com.example.balance.data.material.Material
-import com.example.balance.data.user.User
-import com.example.balance.data.vehicle.Vehicle
+import com.example.balance.data.db.customer.Customer
+import com.example.balance.data.db.material.Material
+import com.example.balance.data.db.user.User
+import com.example.balance.data.db.vehicle.Vehicle
 import com.example.balance.repo.customer.CustomerRepository
 import com.example.balance.repo.material.MaterialRepository
 import com.example.balance.repo.user.UserRepository

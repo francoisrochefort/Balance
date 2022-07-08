@@ -2,14 +2,14 @@ package com.example.balance.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.balance.data.customer.CustomerDao
+import com.example.balance.data.db.customer.CustomerDao
 import com.example.balance.repo.customer.CustomerRepository
 import com.example.balance.repo.customer.CustomerRepositoryImpl
-import com.example.balance.data.Db
-import com.example.balance.data.material.MaterialDao
-import com.example.balance.data.user.UserDao
-import com.example.balance.data.user_settings.UserSettingsDao
-import com.example.balance.data.vehicle.VehicleDao
+import com.example.balance.data.db.Db
+import com.example.balance.data.db.material.MaterialDao
+import com.example.balance.data.db.user.UserDao
+import com.example.balance.data.db.user_settings.UserSettingsDao
+import com.example.balance.data.db.vehicle.VehicleDao
 import com.example.balance.repo.material.MaterialRepository
 import com.example.balance.repo.material.MaterialRepositoryImpl
 import com.example.balance.repo.user.UserRepository

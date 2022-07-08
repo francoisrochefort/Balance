@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import com.example.balance.repo.USBRepository.connect
-import com.example.balance.data.USBSource
-import com.example.balance.functions.SendCommand
-import com.example.balance.functions.ReceiveCommand
+import com.example.balance.data.usb.USBSource
+import com.example.balance.data.usb.functions.SendCommand
+import com.example.balance.data.usb.functions.ReceiveCommand
 import java.io.IOException
 import java.lang.IllegalStateException
 

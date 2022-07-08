@@ -1,4 +1,4 @@
-package com.example.balance.functions
+package com.example.balance.data.usb.functions
 
 /**
  * Commands received from a USBDevice

@@ -1,4 +1,4 @@
-package com.example.balance.data.vehicle
+package com.example.balance.data.db.vehicle
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
@@ -13,15 +13,10 @@ data class Vehicle(
     var plate: String,
     var capacity: Float,
 
-    /*var year: Int,
-    var kind: String,
-    var color: Int,*/
-
     @NonNull
     var customer_id: Int,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
-
 ) {
     override fun toString(): String {
         return model

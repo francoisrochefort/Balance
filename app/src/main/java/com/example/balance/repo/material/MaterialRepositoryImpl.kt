@@ -1,9 +1,7 @@
 package com.example.balance.repo.material
 
-import com.example.balance.data.customer.Customer
-import com.example.balance.data.material.Material
-import com.example.balance.data.material.MaterialDao
-import com.example.balance.repo.customer.CustomerRepositoryImpl
+import com.example.balance.data.db.material.Material
+import com.example.balance.data.db.material.MaterialDao
 
 class MaterialRepositoryImpl(
 

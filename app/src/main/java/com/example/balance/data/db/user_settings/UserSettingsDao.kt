@@ -1,11 +1,11 @@
-package com.example.balance.data.user_settings
+package com.example.balance.data.db.user_settings
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserSettingsDao {
-    @Query("SELECT * FROM user_settings WHERE user_id = :user_id LIMIT 1")
+    @Query("SELECT * FROM user_settings WHERE id = :user_id LIMIT 1")
     fun getUserSettings(user_id: Int): Flow<UserSettings>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)

@@ -1,4 +1,4 @@
-package com.example.balance.data.vehicle
+package com.example.balance.data.db.vehicle
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

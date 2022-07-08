@@ -1,7 +1,7 @@
 package com.example.balance.repo.customer
 
-import com.example.balance.data.customer.Customer
-import com.example.balance.data.customer.CustomerDao
+import com.example.balance.data.db.customer.Customer
+import com.example.balance.data.db.customer.CustomerDao
 
 class CustomerRepositoryImpl(
 

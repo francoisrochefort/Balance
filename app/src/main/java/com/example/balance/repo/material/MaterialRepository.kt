@@ -1,6 +1,6 @@
 package com.example.balance.repo.material
 
-import com.example.balance.data.material.Material
+import com.example.balance.data.db.material.Material
 import kotlinx.coroutines.flow.Flow
 
 interface MaterialRepository {

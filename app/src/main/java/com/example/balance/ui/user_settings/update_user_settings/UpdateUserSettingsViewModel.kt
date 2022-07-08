@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balance.data.user_settings.UserSettings
+import com.example.balance.data.db.user_settings.UserSettings
 import com.example.balance.repo.user_settings.UserSettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,8 @@ class UpdateUserSettingsViewModel @Inject constructor(
     private val repo: UserSettingsRepository
 ) : ViewModel() {
 
-    var userSettings by mutableStateOf(UserSettings(
+    var userSettings by mutableStateOf(
+        UserSettings(
         true,
         "",
         "",

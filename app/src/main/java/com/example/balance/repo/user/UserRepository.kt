@@ -1,6 +1,6 @@
 package com.example.balance.repo.user
 
-import com.example.balance.data.user.User
+import com.example.balance.data.db.user.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

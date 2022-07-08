@@ -1,7 +1,7 @@
 package com.example.balance.repo.user
 
-import com.example.balance.data.user.User
-import com.example.balance.data.user.UserDao
+import com.example.balance.data.db.user.User
+import com.example.balance.data.db.user.UserDao
 
 class UserRepositoryImpl(
 

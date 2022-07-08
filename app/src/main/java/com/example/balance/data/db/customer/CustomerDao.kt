@@ -1,4 +1,4 @@
-package com.example.balance.data.customer
+package com.example.balance.data.db.customer
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

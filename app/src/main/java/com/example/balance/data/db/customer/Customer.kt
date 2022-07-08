@@ -1,4 +1,4 @@
-package com.example.balance.data.customer
+package com.example.balance.data.db.customer
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
