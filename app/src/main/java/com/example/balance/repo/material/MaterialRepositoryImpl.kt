@@ -1,7 +1,9 @@
 package com.example.balance.repo.material
 
+import com.example.balance.data.customer.Customer
 import com.example.balance.data.material.Material
 import com.example.balance.data.material.MaterialDao
+import com.example.balance.repo.customer.CustomerRepositoryImpl
 
 class MaterialRepositoryImpl(
 
@@ -22,6 +24,13 @@ class MaterialRepositoryImpl(
         return materialDao.addMaterial(material)
     }
 
-    override suspend fun updateMaterialInRoom(material: Material) = materialDao.updateMaterial(material)
+    override suspend fun updateMaterialInRoom(material: Material, replace: Boolean) {
+        val existing: Material? = materialDao.getMaterialByName(material.name)
+        if ((existing != null) && (existing.id != material.id) && !replace)
+            throw MaterialAlreadyExists(material)
+
+        //materialDao.updateMaterial(material)
+        materialDao.addMaterial(material)
+    }
     override suspend fun deleteMaterialFromRoom(material: Material) = materialDao.deleteMaterial(material)
 }

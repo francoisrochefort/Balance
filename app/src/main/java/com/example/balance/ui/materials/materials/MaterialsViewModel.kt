@@ -24,6 +24,7 @@ class MaterialsViewModel @Inject constructor(
     var search by mutableStateOf(emptyList<Material>())
 
     private var deleted: Material? = null
+
     private val _event = Channel<ListEvent<Material>>()
     val event = _event.receiveAsFlow()
 

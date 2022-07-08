@@ -19,7 +19,7 @@ fun MaterialsScreen(
 ) {
     val context: Context = LocalContext.current
     ListScreen(
-        title = "Materials",
+        title = context.getString(R.string.materials),
         navigateToAddItemScreen = navigateToAddMaterialScreen,
         navigateToUpdateItemScreen = navigateToUpdateMaterialScreen,
         fetchList = {

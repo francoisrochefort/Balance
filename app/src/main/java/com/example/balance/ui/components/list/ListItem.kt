@@ -1,15 +1,18 @@
 package com.example.balance.ui.components.list
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.balance.R
 import com.example.balance.data.material.Material
 import com.example.balance.ui.components.MyGradientBox
 import com.example.balance.ui.components.MyCard
@@ -25,6 +28,8 @@ fun <T>ListItem(
     deleteItem: (item: T) -> Unit,
     colors: List<Color>
 ) {
+    val context: Context = LocalContext.current
+    var showDialog by remember { mutableStateOf(false) }
     MyCard(
         onClick = {
             navigateToUpdateItemScreen(getItemId(item))
@@ -49,17 +54,56 @@ fun <T>ListItem(
                 }
                 IconButton(
                     onClick = {
-                        deleteItem(item)
+                        showDialog = true
                     }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete customer",
+                        contentDescription = "Delete item",
                         tint = MyListItemIconColor
                     )
                 }
             }
         }
+    }
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                showDialog = false
+            },
+            title = {
+                Text(text = context.getString(R.string.delete_confirmation_dialog_title))
+            },
+            text = {
+                Text(
+                    text = String.format(
+                        context.getString(
+                            R.string.delete_confirmation_dialog_message
+                        ),
+                        getItemText(item)
+                    )
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        deleteItem(item)
+                        showDialog = false
+                    }
+                ) {
+                    Text(context.getString(R.string.delete_confirmation_dialog_confirm_button))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDialog = false
+                    }
+                ) {
+                    Text(context.getString(R.string.delete_confirmation_dialog_cancel_button))
+                }
+            }
+        )
     }
 }
 

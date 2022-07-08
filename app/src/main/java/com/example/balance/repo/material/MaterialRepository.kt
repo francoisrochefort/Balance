@@ -9,6 +9,6 @@ interface MaterialRepository {
     suspend fun getMaterialFromRoom(id: Int): Flow<Material>
 
     suspend fun addMaterialToRoom(material: Material, replace: Boolean) : Long
-    suspend fun updateMaterialInRoom(material: Material)
+    suspend fun updateMaterialInRoom(material: Material, replace: Boolean)
     suspend fun deleteMaterialFromRoom(material: Material)
 }

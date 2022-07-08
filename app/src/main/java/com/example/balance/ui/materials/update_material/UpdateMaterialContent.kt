@@ -23,7 +23,6 @@ import com.example.balance.ui.theme.MyButtonColor2
 fun UpdateMaterialContent(
     padding: PaddingValues,
     id: Int,
-    navigateToMaterialsScreen: () -> Unit,
     viewModel: UpdateMaterialViewModel = hiltViewModel()
 ) {
     MyForm {
@@ -42,7 +41,6 @@ fun UpdateMaterialContent(
             text = "Update",
             onClick = {
                 viewModel.updateMaterial()
-                navigateToMaterialsScreen()
             },
             colors = listOf(
                 MyButtonColor1,

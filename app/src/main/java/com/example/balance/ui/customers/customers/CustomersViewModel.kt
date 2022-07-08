@@ -20,7 +20,8 @@ class CustomersViewModel @Inject constructor(
     private val repo: CustomerRepository
 ) : ViewModel() {
 
-    // TODO: Use a single variable
+    // TODO: Use a single variable; both contain the a customer list. The only difference is that
+    //  flows are emitted by a different producer. The thing is that are consumed by the same consumer
     var customers by mutableStateOf(emptyList<Customer>())
         private set
     var search by mutableStateOf(emptyList<Customer>())

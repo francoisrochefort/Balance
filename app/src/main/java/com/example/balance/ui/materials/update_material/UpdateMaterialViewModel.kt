@@ -7,8 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balance.data.material.Material
 import com.example.balance.repo.material.MaterialRepository
+import com.example.balance.ui.components.list.ListEvent
+import com.example.balance.ui.customers.update_customer.UpdateCustomerEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +23,9 @@ class UpdateMaterialViewModel @Inject constructor(
 
     var material by mutableStateOf(Material(""))
         private set
+
+    private val _event = Channel<ListEvent<Material>>()
+    val event = _event.receiveAsFlow()
 
     fun getMaterial(id: Int) {
         viewModelScope.launch {
@@ -32,9 +39,18 @@ class UpdateMaterialViewModel @Inject constructor(
         material = material.copy(name = name)
     }
 
-    fun updateMaterial() {
+    fun updateMaterial(replace: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.updateMaterialInRoom(material)
+            try {
+                repo.updateMaterialInRoom(
+                    material = material,
+                    replace = replace
+                )
+                _event.send(ListEvent.OnUpdate(material))
+            }
+            catch (e: Exception) {
+                _event.send(ListEvent.OnError(e))
+            }
         }
     }
 }

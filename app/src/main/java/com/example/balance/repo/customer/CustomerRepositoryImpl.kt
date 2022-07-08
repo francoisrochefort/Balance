@@ -32,6 +32,8 @@ class CustomerRepositoryImpl(
         val existing: Customer? = customerDao.getCustomerByName(customer.name)
         if ((existing != null) && (existing.id != customer.id) && !replace)
             throw CustomerAlreadyExists(customer)
+
+        // TODO: call updateCustomer instead?!!
         customerDao.addCustomer(customer)
     }
 

@@ -17,7 +17,7 @@ interface MaterialDao {
     @Query("SELECT * FROM materials WHERE name = :name")
     fun getMaterialByName(name: String): Material?
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addMaterial(material: Material) : Long
 
     @Update
