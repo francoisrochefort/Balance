@@ -8,7 +8,7 @@ interface VehicleRepository {
     suspend fun getSearchFromRoom(customerId: Int, text: String): Flow<List<Vehicle>>
     suspend fun getVehicleFromRoom(id: Int): Flow<Vehicle>
 
-    suspend fun addVehicleToRoom(vehicle: Vehicle)
+    suspend fun addVehicleToRoom(vehicle: Vehicle, replace: Boolean): Long
     suspend fun updateVehicleInRoom(vehicle: Vehicle)
     suspend fun deleteVehicleFromRoom(vehicle: Vehicle)
 }

@@ -1,10 +1,12 @@
 package com.example.balance.ui.vehicles
 
+import android.content.Context
 import com.example.balance.ui.customers.customers.CustomersViewModel
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.balance.R
 import com.example.balance.ui.components.list.ListScreen
 import com.example.balance.ui.theme.MyVehicleMenuColor1
 import com.example.balance.ui.theme.MyVehicleMenuColor2
@@ -16,6 +18,7 @@ fun VehiclesScreen(
     navigateToCustomerVehiclesScreen: (id: Int) -> Unit,
     viewModel: CustomersViewModel = hiltViewModel()
 ) {
+    val context: Context = LocalContext.current
     ListScreen(
         title = "Choose customer",
         navigateToAddItemScreen = navigateToAddCustomerScreen,
@@ -44,6 +47,15 @@ fun VehiclesScreen(
         colors = listOf(
             MyVehicleMenuColor1,
             MyVehicleMenuColor2
-        )
+        ),
+        getEventFlow = {
+            viewModel.event
+        },
+        getSnackBarMessage = {
+            context.getString(R.string.customer_deleted)
+        },
+        undoDelete = {
+            viewModel.undoDelete()
+        }
     )
 }

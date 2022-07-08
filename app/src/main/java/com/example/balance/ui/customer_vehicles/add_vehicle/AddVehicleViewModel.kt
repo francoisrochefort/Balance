@@ -36,10 +36,13 @@ class AddVehicleViewModel @Inject constructor(
         vehicle = vehicle.copy(capacity = capacity)
     }
 
-    fun addVehicle(customerId: Int) {
+    fun addVehicle(customerId: Int, replace: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
             vehicle.customer_id = customerId
-            repo.addVehicleToRoom(vehicle)
+            repo.addVehicleToRoom(
+                vehicle = vehicle,
+                replace = replace
+            )
         }
     }
 }

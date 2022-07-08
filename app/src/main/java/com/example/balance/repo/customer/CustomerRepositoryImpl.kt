@@ -4,7 +4,9 @@ import com.example.balance.data.customer.Customer
 import com.example.balance.data.customer.CustomerDao
 
 class CustomerRepositoryImpl(
+
     private val customerDao: CustomerDao
+
 ) : CustomerRepository {
 
     class CustomerAlreadyExists(val customer: Customer): Exception("Customer ${customer.name} already exists")

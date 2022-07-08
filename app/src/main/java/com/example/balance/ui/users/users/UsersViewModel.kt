@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balance.data.user.User
 import com.example.balance.repo.user.UserRepository
+import com.example.balance.ui.components.list.ListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +21,14 @@ class UsersViewModel @Inject constructor(
 ) : ViewModel() {
 
     var users by mutableStateOf(emptyList<User>())
+        private set
+
     var search by mutableStateOf(emptyList<User>())
+        private set
+
+    private var deleted: User? = null
+    private val _event = Channel<ListEvent<User>>()
+    val event = _event.receiveAsFlow()
 
     fun getUsers() {
         viewModelScope.launch {
@@ -38,7 +48,25 @@ class UsersViewModel @Inject constructor(
 
     fun deleteUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.deleteUserFromRoom(user)
+            try {
+                deleted = user
+                repo.deleteUserFromRoom(user)
+                _event.send(ListEvent.OnDelete(user))
+            }
+            catch (e: Exception) {
+                _event.send(ListEvent.OnError(e))
+            }
+        }
+    }
+
+    fun undoDelete() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repo.addUserToRoom(user = deleted!!, false)
+            }
+            catch (e: Exception) {
+                _event.send(ListEvent.OnError(e))
+            }
         }
     }
 }

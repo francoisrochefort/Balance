@@ -229,12 +229,8 @@ fun NavGraph (
                 navigateToUsersScreen = {
                     navController.navigate(Routes.USERS)
                 },
-
-                // TODO: Should read onNewUser instead
-                navigate = { navigate ->
-
-                    //navController.navigate(Routes.ADD_USER_SETTINGS + "/${id}")
-                    navController.navigate(navigate.route){
+                navigateToUserSettings = { id ->
+                    navController.navigate(Routes.ADD_USER_SETTINGS + "/${id}") {
 
                         // Pop up the add_user page from the backstack prior to navigate to the destination
                         popUpTo(Routes.SETTINGS) {

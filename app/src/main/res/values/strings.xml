@@ -7,4 +7,7 @@
     <string name="material">Material</string>
     <string name="customer_deleted">Customer deleted</string>
     <string name="undo">Undo</string>
+    <string name="user_deleted">User deleted</string>
+    <string name="material_deleted">Material deleted</string>
+    <string name="vehicle_deleted">Vehicle deleted</string>
 </resources>

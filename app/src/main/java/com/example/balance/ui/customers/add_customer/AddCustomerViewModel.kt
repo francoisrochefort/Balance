@@ -5,21 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.balance.Routes
 import com.example.balance.data.customer.Customer
 import com.example.balance.repo.customer.CustomerRepository
-import com.example.balance.ui.users.add_user.UiEvent
+import com.example.balance.ui.components.list.ListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
-
-sealed class AddCustomerEvent {
-    data class OnNew(val customer: Customer): AddCustomerEvent()
-    data class OnError(val exception: Exception) : AddCustomerEvent()
-}
 
 @HiltViewModel
 class AddCustomerViewModel @Inject constructor(
@@ -29,7 +23,7 @@ class AddCustomerViewModel @Inject constructor(
     var customer by mutableStateOf(Customer("", "", "", ""))
         private set
 
-    private val _event = Channel<AddCustomerEvent>()
+    private val _event = Channel<ListEvent<Customer>>()
     val event = _event.receiveAsFlow()
 
     fun updateName(name: String) {
@@ -55,12 +49,16 @@ class AddCustomerViewModel @Inject constructor(
                     customer = customer,
                     replace = replace
                 )
-                _event.send(AddCustomerEvent.OnNew(customer.copy(
-                    id = id.toInt()
-                )))
+                _event.send(
+                    ListEvent.OnNew(
+                        customer.copy(
+                            id = id.toInt()
+                        )
+                    )
+                )
             }
             catch (e: Exception) {
-                _event.send(AddCustomerEvent.OnError(e))
+                _event.send(ListEvent.OnError(e))
             }
         }
     }

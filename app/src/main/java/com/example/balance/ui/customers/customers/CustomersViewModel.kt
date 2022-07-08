@@ -7,18 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balance.data.customer.Customer
 import com.example.balance.repo.customer.CustomerRepository
-import com.example.balance.ui.customers.add_customer.AddCustomerEvent
+import com.example.balance.ui.components.list.ListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-sealed class DeleteCustomerEvent {
-    data class OnDelete(val customer: Customer): DeleteCustomerEvent()
-    data class OnError(val exception: Exception) : DeleteCustomerEvent()
-}
 
 @HiltViewModel
 class CustomersViewModel @Inject constructor(
@@ -33,7 +28,7 @@ class CustomersViewModel @Inject constructor(
 
     private var deleted: Customer? = null
 
-    private val _event = Channel<DeleteCustomerEvent>()
+    private val _event = Channel<ListEvent<Customer>>()
     val event = _event.receiveAsFlow()
 
     fun getCustomers() {
@@ -57,10 +52,10 @@ class CustomersViewModel @Inject constructor(
             try {
                 deleted = customer
                 repo.deleteCustomerFromRoom(customer)
-                _event.send(DeleteCustomerEvent.OnDelete(customer))
+                _event.send(ListEvent.OnDelete(customer))
             }
             catch (e: Exception) {
-                _event.send(DeleteCustomerEvent.OnError(e))
+                _event.send(ListEvent.OnError(e))
             }
         }
     }
@@ -71,7 +66,7 @@ class CustomersViewModel @Inject constructor(
                 repo.addCustomerToRoom(customer = deleted!!, false)
             }
             catch (e: Exception) {
-                _event.send(DeleteCustomerEvent.OnError(e))
+                _event.send(ListEvent.OnError(e))
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.repo.customer.CustomerRepositoryImpl
 import com.example.balance.ui.components.ObjectAlreadyExistExceptionAlertDialog
+import com.example.balance.ui.components.list.ListEvent
 
 @Composable
 fun AddCustomerScreen(
@@ -16,16 +17,17 @@ fun AddCustomerScreen(
     LaunchedEffect(key1 = true) {
         viewModel.event.collect { event ->
             when (event) {
-                is AddCustomerEvent.OnError -> {
+                is ListEvent.OnError -> {
                     when (event.exception) {
                         is CustomerRepositoryImpl.CustomerAlreadyExists -> {
                             showDialog = true
                         }
                     }
                 }
-                is AddCustomerEvent.OnNew -> {
+                is ListEvent.OnNew -> {
                     navigateToCustomersScreen()
                 }
+                else -> Unit
             }
         }
     }

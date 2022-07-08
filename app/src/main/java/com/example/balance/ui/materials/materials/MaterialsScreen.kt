@@ -1,9 +1,11 @@
 package com.example.balance.ui.materials.materials
 
+import android.content.Context
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.balance.R
 import com.example.balance.ui.components.list.ListScreen
 import com.example.balance.ui.theme.MyMaterialMenuColor1
 import com.example.balance.ui.theme.MyMaterialMenuColor2
@@ -15,6 +17,7 @@ fun MaterialsScreen(
     navigateToUpdateMaterialScreen: (id: Int) -> Unit,
     viewModel: MaterialsViewModel = hiltViewModel()
 ) {
+    val context: Context = LocalContext.current
     ListScreen(
         title = "Materials",
         navigateToAddItemScreen = navigateToAddMaterialScreen,
@@ -43,6 +46,15 @@ fun MaterialsScreen(
         colors = listOf(
             MyMaterialMenuColor1,
             MyMaterialMenuColor2
-        )
+        ),
+        getEventFlow = {
+            viewModel.event
+        },
+        getSnackBarMessage = {
+            context.getString(R.string.material_deleted)
+        },
+        undoDelete = {
+            viewModel.undoDelete()
+        }
     )
 }

@@ -25,9 +25,11 @@ class AddMaterialViewModel @Inject constructor(
         material = material.copy(name = name)
     }
 
-    fun addMaterial() {
+    fun addMaterial(replace: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
-            repo.addMaterialToRoom(material)
+            repo.addMaterialToRoom(
+                material = material,
+                replace = replace)
         }
     }
 }

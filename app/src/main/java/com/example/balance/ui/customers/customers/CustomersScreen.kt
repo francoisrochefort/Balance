@@ -3,24 +3,20 @@ package com.example.balance.ui.customers.customers
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarResult
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.balance.R
 import com.example.balance.ui.components.list.AddListItemFAB
 import com.example.balance.ui.components.list.ListContent
-import com.example.balance.ui.components.list.ListScreen
+import com.example.balance.ui.components.list.ListEvent
 import com.example.balance.ui.components.list.ListTopBar
 import com.example.balance.ui.theme.MyCustomerMenuColor1
 import com.example.balance.ui.theme.MyCustomerMenuColor2
-import kotlinx.coroutines.flow.collect
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -32,12 +28,13 @@ fun CustomersScreen(
     val scaffoldState = rememberScaffoldState()
     val context: Context = LocalContext.current
 
-    viewModel.getCustomers()
-
     LaunchedEffect(key1 = true) {
+
+        viewModel.getCustomers()
+
         viewModel.event.collect { event ->
             when (event) {
-                is DeleteCustomerEvent.OnDelete -> {
+                is ListEvent.OnDelete -> {
                     val result = scaffoldState.snackbarHostState.showSnackbar(
                         message = context.getString(R.string.customer_deleted),
                         actionLabel = context.getString(R.string.undo)
@@ -45,9 +42,10 @@ fun CustomersScreen(
                     if (result == SnackbarResult.ActionPerformed)
                         viewModel.undoDelete()
                 }
-                is DeleteCustomerEvent.OnError -> {
+                is ListEvent.OnError -> {
                     Toast.makeText(context, event.exception.message, Toast.LENGTH_SHORT).show()
                 }
+                else -> Unit
             }
         }
     }

@@ -15,7 +15,7 @@ interface VehicleDao {
     fun getVehicle(id: Int): Flow<Vehicle>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addVehicle(vehicle: Vehicle)
+    fun addVehicle(vehicle: Vehicle) : Long
 
     @Update
     fun updateVehicle(vehicle: Vehicle)

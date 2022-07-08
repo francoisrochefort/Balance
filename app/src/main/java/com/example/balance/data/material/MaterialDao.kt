@@ -14,8 +14,11 @@ interface MaterialDao {
     @Query("SELECT * FROM materials WHERE id = :id")
     fun getMaterial(id: Int): Flow<Material>
 
+    @Query("SELECT * FROM materials WHERE name = :name")
+    fun getMaterialByName(name: String): Material?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addMaterial(material: Material)
+    fun addMaterial(material: Material) : Long
 
     @Update
     fun updateMaterial(material: Material)

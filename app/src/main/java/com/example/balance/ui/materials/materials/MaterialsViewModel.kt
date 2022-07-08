@@ -7,8 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.balance.data.material.Material
 import com.example.balance.repo.material.MaterialRepository
+import com.example.balance.ui.components.list.ListEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +22,10 @@ class MaterialsViewModel @Inject constructor(
 
     var materials by mutableStateOf(emptyList<Material>())
     var search by mutableStateOf(emptyList<Material>())
+
+    private var deleted: Material? = null
+    private val _event = Channel<ListEvent<Material>>()
+    val event = _event.receiveAsFlow()
 
     fun getMaterials() {
         viewModelScope.launch {
@@ -39,6 +46,17 @@ class MaterialsViewModel @Inject constructor(
     fun deleteMaterial(material: Material) {
         viewModelScope.launch(Dispatchers.IO) {
             repo.deleteMaterialFromRoom(material)
+        }
+    }
+
+    fun undoDelete() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repo.addMaterialToRoom(material = deleted!!, false)
+            }
+            catch (e: Exception) {
+                _event.send(ListEvent.OnError(e))
+            }
         }
     }
 }
