@@ -34,7 +34,7 @@ fun UpdateUserSettingsContent(
         MyTextField(
             hint =  "Date time...",
             label = "Date",
-            value = viewModel.userSettings.dateTime,
+            value = viewModel.userSettings.dateTime.toString(),
             onValueChange = { dateTime -> viewModel.updateDateTime(dateTime) },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.TextNext

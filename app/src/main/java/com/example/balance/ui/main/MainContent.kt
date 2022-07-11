@@ -1,5 +1,6 @@
 package com.example.balance.ui.main
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier

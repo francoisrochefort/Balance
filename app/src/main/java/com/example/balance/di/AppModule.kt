@@ -2,6 +2,7 @@ package com.example.balance.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.balance.data.db.Converters
 import com.example.balance.data.db.customer.CustomerDao
 import com.example.balance.repo.customer.CustomerRepository
 import com.example.balance.repo.customer.CustomerRepositoryImpl
@@ -18,9 +19,6 @@ import com.example.balance.repo.user_settings.UserSettingsRepository
 import com.example.balance.repo.user_settings.UserSettingsRepositoryImpl
 import com.example.balance.repo.vehicle.VehicleRepository
 import com.example.balance.repo.vehicle.VehicleRepositoryImpl
-//import com.example.balance.data.customer_vehicle.CustomerVehicleDao
-//import com.example.balance.repo.customer_vehicle.CustomerVehicleRepository
-//import com.example.balance.repo.customer_vehicle.CustomerVehicleRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,10 +33,12 @@ class AppModule {
         @ApplicationContext
         context : Context
     ) = Room.databaseBuilder(
-        context,
-        Db::class.java,
-        "balance"
-    ).build()
+            context,
+            Db::class.java,
+            "balance"
+        )
+        .addTypeConverter(Converters())
+        .build()
 
     @Provides
     fun provideCustomerDao(

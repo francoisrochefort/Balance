@@ -10,6 +10,8 @@ import com.example.balance.repo.user_settings.UserSettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +22,7 @@ class AddUserSettingsViewModel @Inject constructor(
     var userSettings by mutableStateOf(
         UserSettings(
             false,
-            "",
+            Date(),
             "",
             "",
             ""
@@ -33,7 +35,7 @@ class AddUserSettingsViewModel @Inject constructor(
     }
 
     fun updateDateTime(dateTime: String) {
-        userSettings = userSettings.copy(dateTime = dateTime)
+        userSettings = userSettings.copy(dateTime = SimpleDateFormat("yyyy-MM-dd").parse(dateTime))
     }
     fun updateLanguage(language: String) {
         userSettings = userSettings.copy(language = language)

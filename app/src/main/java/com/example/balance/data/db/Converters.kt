@@ -1,43 +1,19 @@
 package com.example.balance.data.db
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import java.text.SimpleDateFormat
 import java.util.*
 
-/*
-import androidx.room.TypeConverter
-import java.sql.Date
-/////////////////////////////////////////////////////////////////
-class Converters {
-    @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
-    }
-
-    @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
-    }
-}*/
-
-/////////////////////////////////////////////////////////////////
-/* wip mathieu
+@ProvidedTypeConverter
 class Converters {
 
     @TypeConverter
-    fun fromTimestamp(value: Long?): Calendar? {
-        return value?.let { Calendar.getInstance().apply { timeInMillis = it } }
+    fun toDate(timestamp: Long): Date {
+        return Date(timestamp)
     }
 
     @TypeConverter
-    fun dateToTimestamp(calendar: Calendar?): Long? {
-        return calendar?.timeInMillis
+    fun toTimestamp(date: Date): Long {
+        return date.time
     }
 }
-*/
-/////////////////////////////////////////////////////////////////
-/* mathieu
-val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-val currentDate = sdf.format(Date())
- */
-/////////////////////////////////////////////////////////////////

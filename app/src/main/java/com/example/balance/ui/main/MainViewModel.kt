@@ -14,6 +14,10 @@ import com.example.balance.repo.material.MaterialRepository
 import com.example.balance.repo.user.UserRepository
 import com.example.balance.repo.vehicle.VehicleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +31,6 @@ class MainViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    //var selectedUnit: Unit? by mutableStateOf(null)
     var tare: Float by mutableStateOf(1000f)
     var degree: Float by mutableStateOf(0f)
     var currentWeight: Float by mutableStateOf(1_000_000f)
@@ -38,23 +41,29 @@ class MainViewModel @Inject constructor(
 
     var users by mutableStateOf(emptyList<User>())
         private set
+
     var customers by mutableStateOf(emptyList<Customer>())
         private set
+
     var vehicles by mutableStateOf(emptyList<Vehicle>())
         private set
+
     var materials by mutableStateOf(emptyList<Material>())
         private set
 
     var selectedUser: User? by mutableStateOf(null)
         private set
+
     var selectedCustomer: Customer? by mutableStateOf(null)
         private set
+
     var selectedVehicle: Vehicle? by mutableStateOf(null)
         private set
+
     var selectedMaterial: Material? by mutableStateOf(null)
         private set
 
-    fun getUsers() {
+    private fun getUsers() {
         viewModelScope.launch {
             userRepository.getUsersFromRoom().collect { response ->
                 users = response
@@ -62,15 +71,15 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getCustomers() {
+    private fun getCustomers() {
         viewModelScope.launch {
-            customerRepository.getCustomersFromRoom().collect { response ->
-                customers = response
+            customerRepository.getCustomersFromRoom().collect {
+                customers = it
             }
         }
     }
 
-    fun getVehicles() {
+    private fun getVehicles() {
         selectedCustomer?.let { customer ->
             viewModelScope.launch {
                 vehicleRepository.getVehiclesFromRoom(customer.id).collect { response ->
@@ -80,10 +89,26 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getMaterials() {
+    private fun getMaterials() {
         viewModelScope.launch {
             materialRepository.getMaterialsFromRoom().collect { response ->
                 materials = response
+            }
+        }
+    }
+
+    suspend fun load() {
+
+        getUsers()
+        getCustomers()
+        getVehicles()
+        getMaterials()
+
+        viewModelScope.launch {
+            selectedCustomer?.let {
+                customerRepository.getCustomerFromRoom(it.id).collect { customer ->
+                    selectedCustomer = customer
+                }
             }
         }
     }
@@ -93,10 +118,23 @@ class MainViewModel @Inject constructor(
     }
 
     fun updateCustomer(customer: Customer) {
-        selectedCustomer = customer
-        getVehicles()
 
-        if (customer != selectedCustomer) selectedVehicle = null
+        // Check if we need to update the UI
+        if (customer != selectedCustomer) {
+
+            // If so then clear the selected vehicle
+            selectedVehicle = null
+
+            // Update the vehicle list
+            viewModelScope.launch {
+                vehicleRepository.getVehiclesFromRoom(customer!!.id).collect { list ->
+                    vehicles = list
+                }
+            }
+
+            // Update the selected customer
+            selectedCustomer = customer
+        }
     }
 
     fun updateVehicle(vehicle: Vehicle) {

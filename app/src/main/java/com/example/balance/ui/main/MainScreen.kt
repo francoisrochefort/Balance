@@ -1,5 +1,6 @@
 package com.example.balance.ui.main
 
+import android.util.Log
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -10,14 +11,11 @@ fun MainScreen(
     navigateToSettingsScreen: () -> Unit,
     viewModel: MainViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(Unit) {
-
-        viewModel.getUsers()
-        viewModel.getMaterials()
-        viewModel.getCustomers()
-        viewModel.getVehicles()
-
+    LaunchedEffect(key1 = true) {
+        Log.d("ABRACADABRA", "LaunchedEffect")
+        viewModel.load()
     }
+
     Scaffold(
         content = { padding ->
             MainContent(

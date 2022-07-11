@@ -4,6 +4,7 @@ import com.example.balance.data.db.customer.Customer
 import kotlinx.coroutines.flow.Flow
 
 interface CustomerRepository {
+
     suspend fun getCustomersFromRoom(): Flow<List<Customer>>
     suspend fun getSearchFromRoom(name: String): Flow<List<Customer>>
     suspend fun getCustomerFromRoom(id: Int): Flow<Customer>

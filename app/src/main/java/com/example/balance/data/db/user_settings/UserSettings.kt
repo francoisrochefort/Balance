@@ -23,7 +23,7 @@ data class UserSettings(
     @ColumnInfo(name = "enable_vehicle_management")
     var enableVehicleManagement: Boolean,
     @ColumnInfo(name = "date_time")
-    var dateTime: String, //Date?,
+    var dateTime: Date?,
     var language: String,
     @ColumnInfo(name = "company_info")
     var companyInfo: String,

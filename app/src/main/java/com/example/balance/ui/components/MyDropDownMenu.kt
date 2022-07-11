@@ -1,5 +1,6 @@
 package com.example.balance.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.DropdownMenu
